@@ -57,7 +57,7 @@ notify.setup({
 })
 
 -- Ejemplo de notificación
-notify(" 🚀 Bienvenido de nuevo Victor", "info", {
+notify(" 🚀 Bienvenido de nuevo User", "info", {
 	title = " Nvim",
 })
 
