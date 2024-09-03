@@ -101,5 +101,7 @@ A continuación, se muestra un ejemplo de cómo se ve la configuración final de
 ## Créditos
 
 FStanDev por la inspiración inicial.
-Contribuciones
+
+## Contribuciones
+
 Las contribuciones son bienvenidas. Por favor, abre un issue o pull request para discutir cualquier cambio.
