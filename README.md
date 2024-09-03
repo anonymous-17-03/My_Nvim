@@ -72,6 +72,8 @@ Clona este repositorio en tu directorio de configuración de Neovim y ejecuta nv
 git clone https://github.com/anonymous-17-03/My_Nvim.git ~/.config/nvim && nvim
 ```
 
+Luego, después de instalar todos los complementos, ejecute `:MasonInstallAll` dentro de nvim y listo 😀
+
 ## Notas
 
 Las 2 notificaciones al entrar a nvim son de ejemplo pueden editarlas en los archivos de configuración.
