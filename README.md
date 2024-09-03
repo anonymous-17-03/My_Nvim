@@ -9,7 +9,6 @@ Este repositorio contiene mi configuración personalizada de Neovim, diseñada p
 ```bash
 .
 ├── init.lua
-├── lazy-lock.json
 └── lua
     ├── base
     │   ├── init.lua
