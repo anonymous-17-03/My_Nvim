@@ -1,6 +1,8 @@
 # My Neovim Configuration
 
+
 ![Neovim Logo](img/logo.webp)
+
 
 Este repositorio contiene mi configuración personalizada de Neovim, diseñada para mejorar mi flujo de trabajo de desarrollo. Me basé en [FStanDev/myNvimConfig](https://github.com/FStanDev/myNvimConfig) para crear esta configuración.
 
