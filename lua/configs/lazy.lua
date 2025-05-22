@@ -328,7 +328,7 @@ return {
 			wk.setup({})
 			wk.register({
 				["<leader>"] = {
-					n = { vim.cmd.NvimTreeFocus, " Enfocar NvimTree" },
+					n = { "<cmd>NvimTreeFocus<cr>", " Enfocar NvimTree" },
 					w = {
 						name = " Ventana",
 						s = { "<cmd>split<cr>", "󰯌 División Horizontal" },

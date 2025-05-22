@@ -18,7 +18,22 @@ notify.setup({
 })
 
 -- Mensaje de bienvenida
-notify("🚀 Bienvenido de nuevo Victor", "info", { title = "Nvim" })
+-- notify("🚀 Bienvenido de nuevo NameUser", "info", { title = "Nvim", timeout = 3000, })
+-- notify("💀 Bienvenido de nuevo root", "error", { title = "Nvim", timeout = 3000, })
+local user = vim.loop.os_get_passwd().username
+local is_root = vim.loop.getuid() == 0
+
+if is_root then
+	notify("💀 Bienvenido de nuevo root", "error", {
+		title = "Nvim",
+		timeout = 3000,
+	})
+else
+	notify("🚀 Bienvenido de nuevo " .. user, "info", {
+		title = "Nvim",
+		timeout = 3000,
+	})
+end
 
 -- Tabla para manejar notificaciones por cliente y token
 local client_notifs = {}
