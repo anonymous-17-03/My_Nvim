@@ -1,99 +1,6 @@
 return {
-	{
-		"chrisgrieser/nvim-rip-substitute",
-		cmd = "RipSubstitute",
-		keys = {
-			{
-				"<leader>fs",
-				function()
-					require("rip-substitute").sub()
-				end,
-				mode = { "n", "x" },
-				desc = " rip substitute",
-			},
-		},
-	},
-	{
-		"akinsho/toggleterm.nvim",
-		version = "*",
-		config = function()
-			require("toggleterm").setup({
-				open_mapping = [[<c-\>]],
-				shade_filetypes = {},
-				shade_terminals = true,
-				start_in_insert = true,
-				persist_size = true,
-				direction = "float", -- Cambia a "vertical" o "horizontal" si deseas uno de esos por defecto
-				shell = "zsh",
-				float_opts = {
-					border = "rounded", -- Cambia a "none", "rounded" o "solid" para diferentes estilos
-					-- winblend = 3, -- Hace la ventana más translúcida
-				},
-				-- Tamaño para terminales verticales y horizontales
-				size = function(term)
-					if term.direction == "horizontal" then
-						return 17 -- Altura de 10 líneas
-					elseif term.direction == "vertical" then
-						return 80 -- Ancho de 80 columnas
-					end
-					return 20 -- Tamaño predeterminado para terminal flotante
-				end,
-			})
 
-			-- Mapeos adicionales para abrir terminales en diferentes direcciones
-			vim.api.nvim_set_keymap("n", "<Leader>tf", ":ToggleTerm direction=float<CR>", { noremap = true })
-			vim.api.nvim_set_keymap("n", "<Leader>tv", ":ToggleTerm direction=vertical<CR>", { noremap = true })
-			vim.api.nvim_set_keymap("n", "<Leader>th", ":ToggleTerm direction=horizontal<CR>", { noremap = true })
-		end,
-	},
-	{
-		"iamcco/markdown-preview.nvim",
-		ft = "markdown",
-		build = "cd app && npm install",
-		config = function()
-			vim.g.mkdp_auto_start = 1
-			vim.g.mkdp_open_to_the_world = 1
-			vim.g.mkdp_port = "8888"
-			vim.g.mkdp_browser = "google-chrome" -- Usar Chrome como navegador
-		end,
-	},
-	{
-		"nvim-telescope/telescope.nvim",
-		tag = "0.1.6",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = function()
-			return require("configs.telescope")
-		end,
-	},
-	-- git stuff
-	{
-		"lewis6991/gitsigns.nvim",
-		ft = { "gitcommit", "diff" },
-		init = function()
-			-- load gitsigns only when a git file is opened
-			vim.api.nvim_create_autocmd({ "BufRead" }, {
-				group = vim.api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
-				callback = function()
-					vim.fn.jobstart({ "git", "-C", vim.loop.cwd(), "rev-parse" }, {
-						on_exit = function(_, return_code)
-							if return_code == 0 then
-								vim.api.nvim_del_augroup_by_name("GitSignsLazyLoad")
-								vim.schedule(function()
-									require("lazy").load({ plugins = { "gitsigns.nvim" } })
-								end)
-							end
-						end,
-					})
-				end,
-			})
-		end,
-		opts = function()
-			return require("configs.others").gitsigns
-		end,
-		config = function(_, opts)
-			require("gitsigns").setup(opts)
-		end,
-	},
+	-- Editor: Ej. autopairs, treesitter, indent, mason
 	{
 		"windwp/nvim-autopairs",
 		config = function()
@@ -108,26 +15,10 @@ return {
 		end,
 	},
 	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		opts = {
-			-- add any options here
-		},
-		dependencies = {
-			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-			"MunifTanjim/nui.nvim",
-			-- OPTIONAL:
-			--   `nvim-notify` is only needed, if you want to use the notification view.
-			--   If not available, we use `mini` as the fallback
-			"rcarriga/nvim-notify",
-		},
-	},
-	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		config = function()
-			local configs = require("nvim-treesitter.configs")
-			configs.setup({
+			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
 					"vim",
 					"lua",
@@ -151,9 +42,6 @@ return {
 		end,
 	},
 	{
-		"rcarriga/nvim-notify",
-	},
-	{
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
 		opts = {
@@ -169,103 +57,6 @@ return {
 				},
 			},
 		},
-	},
-	{
-		"folke/which-key.nvim",
-		lazy = false,
-		config = function()
-			local wk = require("which-key")
-
-			wk.setup({
-				-- Configura el plugin según tus necesidades
-			})
-
-			wk.register({
-				["<leader>"] = {
-					e = { vim.cmd.NvimTreeFocus, "Enfocar NvimTree" },
-					["1"] = { vim.cmd.bfirst, "Primer Buffer" },
-					["0"] = { vim.cmd.blast, "Último Buffer" },
-					f = {
-						name = "archivo",
-						f = { "<cmd>Telescope find_files<cr>", "Buscar Archivo" },
-						r = { "<cmd>Telescope oldfiles<cr>", "Abrir Archivo Reciente" },
-						n = { "<cmd>enew<cr>", "Nuevo Archivo" },
-					},
-					w = {
-						name = "ventana",
-						s = { "<cmd>split<cr>", "División Horizontal" },
-						v = { "<cmd>vsplit<cr>", "División Vertical" },
-					},
-					r = {
-						name = "Renombrar",
-						v = { "<cmd>rv<cr>", "Renombrar Variable" },
-					},
-					q = { name = "Lista de Diagnostico" },
-					d = { name = "Diagnostico" },
-					b = {
-						name = "buffer",
-						n = { "<cmd>bn<cr>", "Siguiente Buffer" },
-						p = { "<cmd>bp<cr>", "Buffer Anterior" },
-					},
-					c = {
-						name = "Correccion",
-						a = { "<cmd>ca<cr>", "Acciones de Codigo" },
-					},
-					ff = { "<cmd>Telescope find_files<cr>", "Buscar Archivos" },
-					fg = { "<cmd>Telescope live_grep<cr>", "Búsqueda en Vivo" },
-					fb = { "<cmd>Telescope buffers<cr>", "Buscar Buffers" },
-					fh = { "<cmd>Telescope help_tags<cr>", "Etiquetas de Ayuda" },
-				},
-			})
-		end,
-	},
-	{
-		"nvimdev/dashboard-nvim",
-		event = "VimEnter",
-		config = function()
-			require("dashboard").setup({
-				-- config
-			})
-		end,
-		dependencies = { { "nvim-tree/nvim-web-devicons" } },
-	},
-	{
-		"folke/tokyonight.nvim", -- Añadido el plugin tokyonight
-		lazy = false,
-		priority = 1000,
-		config = function()
-			require("tokyonight").setup({
-				-- Configura el tema como lo necesites aquí
-				style = "night", -- Otras opciones: "storm", "night", "day"
-				transparent = true, -- Activar transparencia
-				terminal_colors = true,
-				styles = {
-					sidebars = "transparent", -- Configura los sidebars como transparentes
-					floats = "transparent", -- Configura los elementos flotantes como transparentes
-				},
-			})
-			vim.cmd([[colorscheme tokyonight]])
-
-			-- Configuración adicional para asegurarse de que otros elementos sean transparentes
-			local highlight_groups = {
-				"Normal",
-				"NormalNC",
-				"TelescopeNormal",
-				"TelescopeBorder",
-				"TelescopePromptNormal",
-				"TelescopePromptBorder",
-				"TelescopeResultsNormal",
-				"TelescopeResultsBorder",
-				"TelescopePreviewNormal",
-				"TelescopePreviewBorder",
-				"LazyNormal",
-				"MasonNormal",
-			}
-
-			for _, group in ipairs(highlight_groups) do
-				vim.cmd(string.format("highlight %s guibg=none ctermbg=none", group))
-			end
-		end,
 	},
 	{
 		"williamboman/mason.nvim",
@@ -292,20 +83,6 @@ return {
 		},
 		config = function()
 			require("configs.lspconfig")
-		end,
-	},
-	{
-		"nvim-tree/nvim-tree.lua",
-		version = "*",
-		lazy = false,
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-		},
-		opts = function()
-			return require("configs.nvimtree")
-		end,
-		config = function(_, opts)
-			require("nvim-tree").setup(opts)
 		end,
 	},
 	{
@@ -403,6 +180,25 @@ return {
 			require("dap-python").setup(path)
 		end,
 	},
+
+	-- ui: Ej. noice, notify, tokyonight, dashboard, lualine, nvim-tree
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {},
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+		},
+	},
+	{
+		"nvimdev/dashboard-nvim",
+		event = "VimEnter",
+		config = function()
+			require("dashboard").setup({})
+		end,
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -412,5 +208,197 @@ return {
 		config = function(_, opts)
 			require("lualine").setup(opts)
 		end,
+	},
+	{
+		"nvim-tree/nvim-tree.lua",
+		version = "*",
+		lazy = false,
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+		opts = function()
+			return require("configs.nvimtree")
+		end,
+		config = function(_, opts)
+			require("nvim-tree").setup(opts)
+		end,
+	},
+
+	-- Terminal: Ej. toggleterm
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		config = function()
+			require("toggleterm").setup({
+				open_mapping = [[<c-\>]],
+				shade_filetypes = {},
+				shade_terminals = true,
+				start_in_insert = true,
+				persist_size = true,
+				direction = "float",
+				shell = "zsh",
+				float_opts = {
+					border = "rounded",
+				},
+				size = function(term)
+					if term.direction == "horizontal" then
+						return 17
+					elseif term.direction == "vertical" then
+						return 80
+					end
+					return 20
+				end,
+			})
+
+			-- Mapeos para abrir terminales en diferentes direcciones
+			-- Registro en which-key con íconos
+			local wk = require("which-key")
+			wk.register({
+				["<leader>"] = {
+					t = {
+						name = " Terminal",
+						f = { "<cmd>ToggleTerm direction=float<cr>", " Terminal Flotante" },
+						v = { "<cmd>ToggleTerm direction=vertical<cr>", " Terminal Vertical" },
+						h = { "<cmd>ToggleTerm direction=horizontal<cr>", " Terminal Horizontal" },
+					},
+				},
+			})
+		end,
+	},
+
+	-- Markdown: Ej. markdown-preview
+	{
+		"iamcco/markdown-preview.nvim",
+		ft = "markdown",
+		build = "cd app && npm install",
+		config = function()
+			vim.g.mkdp_auto_start = 1
+			vim.g.mkdp_open_to_the_world = 1
+			vim.g.mkdp_port = "8888"
+			vim.g.mkdp_browser = "google-chrome"
+		end,
+	},
+
+	-- Git: Ej. gitsigns
+	{
+		"lewis6991/gitsigns.nvim",
+		ft = { "gitcommit", "diff" },
+		init = function()
+			vim.api.nvim_create_autocmd({ "BufRead" }, {
+				group = vim.api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
+				callback = function()
+					vim.fn.jobstart({ "git", "-C", vim.loop.cwd(), "rev-parse" }, {
+						on_exit = function(_, return_code)
+							if return_code == 0 then
+								vim.api.nvim_del_augroup_by_name("GitSignsLazyLoad")
+								vim.schedule(function()
+									require("lazy").load({ plugins = { "gitsigns.nvim" } })
+								end)
+							end
+						end,
+					})
+				end,
+			})
+		end,
+		opts = function()
+			return require("configs.others").gitsigns
+		end,
+		config = function(_, opts)
+			require("gitsigns").setup(opts)
+		end,
+	},
+
+	-- Telescope
+	{
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.6",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = function()
+			return require("configs.telescope")
+		end,
+	},
+
+	-- Keymaps: Ej. which-key
+	{
+		"folke/which-key.nvim",
+		lazy = false,
+		config = function()
+			local wk = require("which-key")
+
+			wk.setup({})
+			wk.register({
+				["<leader>"] = {
+					n = { vim.cmd.NvimTreeFocus, " Enfocar NvimTree" },
+					w = {
+						name = " Ventana",
+						s = { "<cmd>split<cr>", "󰯌 División Horizontal" },
+						v = { "<cmd>vsplit<cr>", "󰯅 División Vertical" },
+					},
+					r = {
+						name = "󰑕 Renombrar",
+						v = { "<cmd>rv<cr>", " Renombrar Variable" },
+					},
+					c = {
+						name = "󰛲 Corrección",
+						a = { "<cmd>ca<cr>", " Acciones de Código" },
+					},
+				},
+			})
+		end,
+	},
+
+	-- Themes: Ej. tokyonight
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("tokyonight").setup({
+				style = "night",
+				transparent = true,
+				terminal_colors = true,
+				styles = {
+					sidebars = "transparent",
+					floats = "transparent",
+				},
+			})
+
+			vim.cmd([[colorscheme tokyonight]])
+
+			local highlight_groups = {
+				"Normal",
+				"NormalNC",
+				"TelescopeNormal",
+				"TelescopeBorder",
+				"TelescopePromptNormal",
+				"TelescopePromptBorder",
+				"TelescopeResultsNormal",
+				"TelescopeResultsBorder",
+				"TelescopePreviewNormal",
+				"TelescopePreviewBorder",
+				"LazyNormal",
+			}
+
+			for _, group in ipairs(highlight_groups) do
+				vim.cmd("hi " .. group .. " guibg=NONE ctermbg=NONE")
+			end
+		end,
+	},
+
+	-- Rip Substitute
+	{
+		"chrisgrieser/nvim-rip-substitute",
+		cmd = "RipSubstitute",
+		opts = {},
+		keys = {
+			{
+				"<leader>rs",
+				function()
+					require("rip-substitute").sub()
+				end,
+				mode = { "n", "x" },
+				desc = " rip substitute",
+			},
+		},
 	},
 }

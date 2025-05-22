@@ -1,13 +1,17 @@
--- Bubbles config for lualine with icons and features from Eviline
+-- lualine.lua
+-- Configuración personalizada para lualine, un plugin de status line para Neovim.
+-- Basado en un tema "Bubbles" con colores e íconos inspirados en el tema Eviline.
 
+-- Definimos resaltados personalizados para los buffers activos e inactivos en la línea de estado
 vim.cmd([[
   highlight LualineBuffersCurrent guifg=#d183e8 guibg=#202328 gui=bold
   highlight LualineBuffers guifg=#808080 guibg=#202328
 ]])
 
+-- Cargamos el módulo de lualine
 local lualine = require("lualine")
 
--- Define colors
+-- Definimos una tabla de colores para usar en el tema y componentes
 local colors = {
 	blue = "#80a0ff",
 	cyan = "#79dac8",
@@ -24,22 +28,27 @@ local colors = {
 	magenta = "#c678dd",
 }
 
--- Define conditions for displaying components
+-- Funciones condicionales para mostrar u ocultar ciertos componentes basados en el contexto actual
+
 local conditions = {
+	-- Verifica que el buffer actual no esté vacío
 	buffer_not_empty = function()
 		return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
 	end,
+	-- Verifica que el ancho de la ventana sea mayor a 80 caracteres para mostrar componentes extensos
 	hide_in_width = function()
 		return vim.fn.winwidth(0) > 80
 	end,
+	-- Verifica si estamos dentro de un workspace git para mostrar información git
 	check_git_workspace = function()
 		local filepath = vim.fn.expand("%:p:h")
 		local gitdir = vim.fn.finddir(".git", filepath .. ";")
+		-- Retorna true si se encontró un directorio .git y está dentro del path
 		return gitdir and #gitdir > 0 and #gitdir < #filepath
 	end,
 }
 
--- Bubbles theme with additional colors from Eviline
+-- Tema personalizado para lualine basado en "Bubbles" con colores Eviline
 local bubbles_theme = {
 	normal = {
 		a = { fg = colors.black, bg = colors.violet },
@@ -56,35 +65,42 @@ local bubbles_theme = {
 	},
 }
 
--- Lualine configuration
+-- Configuración principal de lualine
 local config = {
 	options = {
+		-- Usamos el tema definido arriba
 		theme = bubbles_theme,
+		-- Separadores entre componentes y secciones
 		component_separators = { left = "│", right = "│" },
 		section_separators = { left = "", right = "" },
-		globalstatus = true,
+		globalstatus = true, -- Usa la barra de estado global (Neovim >= 0.7)
 	},
 	sections = {
+		-- Sección izquierda A (modo actual y un icono personalizado)
 		lualine_a = {
 			{
+				-- Muestra un icono personalizado
 				function()
 					return ""
 				end,
 				separator = { left = "" },
-				color = { fg = "#000000" }, -- Color verde pastel
+				color = { fg = "#000000" }, -- Color negro para el icono
 				padding = { left = 1, right = 1 },
 			},
+			-- Muestra el modo actual (NORMAL, INSERT, etc)
 			{ "mode", separator = { left = "", right = "" }, right_padding = 2 },
 		},
+		-- Sección izquierda B (nombre del archivo)
 		lualine_b = {
 			{
 				"filename",
-				path = 1,
+				path = 1, -- Mostrar el path relativo del archivo
 				symbols = { modified = "⦿", readonly = "", unnamed = "[No Name]" },
-				color = { gui = "bold" },
-				cond = conditions.buffer_not_empty,
+				color = { gui = "bold" }, -- Nombre en negrita
+				cond = conditions.buffer_not_empty, -- Solo si buffer no está vacío
 			},
 		},
+		-- Sección central C (tamaño archivo, diagnósticos y buffers abiertos)
 		lualine_c = {
 			{ "filesize", cond = conditions.buffer_not_empty },
 			{
@@ -98,6 +114,7 @@ local config = {
 				},
 			},
 			{
+				-- Muestra la lista de buffers abiertos con colores personalizados para el buffer activo
 				function()
 					local buffers = vim.fn.getbufinfo({ buflisted = true })
 					local result = {}
@@ -114,11 +131,13 @@ local config = {
 					end
 					return table.concat(result)
 				end,
-				color = { fg = colors.grey }, -- Color gris para todos los buffers
+				color = { fg = colors.grey }, -- Gris para buffers inactivos
 			},
 		},
+		-- Sección derecha X (LSP, codificación, formato, rama git y diferencias)
 		lualine_x = {
 			{
+				-- Muestra el cliente LSP activo o "No Active Lsp" si no hay ninguno
 				function()
 					local msg = "No Active Lsp"
 					local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
@@ -138,15 +157,24 @@ local config = {
 				color = { fg = colors.blue, gui = "bold" },
 			},
 			{
-				"o:encoding",
-				fmt = string.upper,
-				cond = conditions.hide_in_width,
+				"o:encoding", -- Muestra codificación (UTF-8, etc)
+				fmt = string.upper, -- Mayúsculas
+				cond = conditions.hide_in_width, -- Solo si ventana suficientemente ancha
 				color = { fg = colors.green, gui = "bold" },
 			},
-			{ "fileformat", fmt = string.upper, icons_enabled = true, color = { fg = colors.green, gui = "bold" } },
-			{ "branch", icon = "", color = { fg = colors.violet, gui = "bold" } },
 			{
-				"diff",
+				"fileformat", -- Formato de archivo (unix, dos, mac)
+				fmt = string.upper,
+				icons_enabled = true,
+				color = { fg = colors.green, gui = "bold" },
+			},
+			{
+				"branch", -- Rama git actual
+				icon = "",
+				color = { fg = colors.violet, gui = "bold" },
+			},
+			{
+				"diff", -- Cambios git: añadidos, modificados, eliminados
 				symbols = { added = " ", modified = "󰝤 ", removed = " " },
 				diff_color = {
 					added = { fg = colors.green },
@@ -156,9 +184,12 @@ local config = {
 				cond = conditions.hide_in_width,
 			},
 		},
+		-- Sección derecha Y (tipo de archivo y progreso en el buffer)
 		lualine_y = { "filetype", "progress" },
+		-- Sección derecha Z (posición del cursor con separadores)
 		lualine_z = { { "location", separator = { right = "" }, left_padding = 2 } },
 	},
+	-- Secciones para ventanas inactivas (sin foco)
 	inactive_sections = {
 		lualine_a = { "filename" },
 		lualine_b = {},
@@ -167,9 +198,9 @@ local config = {
 		lualine_y = {},
 		lualine_z = { "location" },
 	},
-	tabline = {},
-	extensions = {},
+	tabline = {}, -- No se usa configuración para la tabline
+	extensions = {}, -- No se cargan extensiones adicionales
 }
 
--- Initialize lualine with the combined config
+-- Finalmente, se inicializa lualine con la configuración arriba definida
 lualine.setup(config)
