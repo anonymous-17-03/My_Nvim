@@ -65,7 +65,7 @@ Este repositorio contiene mi configuración personalizada de Neovim, diseñada p
 - NVIM v0.10.0 o superior.
 - Git para clonar este repositorio.
 - Node.js y npm para soporte de algunas características.
-- Paquetes: `gcc`, `fzf`, `fd`, `ripgrep`, `bat`, `curl` y `lazygit`.
+- Paquetes: `gcc`, `fzf`, `fd`, `ripgrep`, `deno`, `bat`, `curl` y `lazygit`.
 
 ## Instalación
 
@@ -97,6 +97,7 @@ La notificacion de bienvenida al entrar a nvim son de ejemplo, pueden editarlas 
 - NvimTree: Explorador de archivos tipo árbol.
 - Mason: Gestión de herramientas de desarrollo como LSPs y DAPs.
 - Rust Tools: Mejor soporte para desarrollo en Rust.
+- Previsualización de archivos Markdown los siguientes concomandos: `:Glow`, `:MarkdownPreview` y `:PeekOpen`.
 - Y muchas más funcionalidades (Puede ver el codigo completamente documentado).
 
 ## Capturas de Pantalla
