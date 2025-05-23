@@ -105,9 +105,19 @@ A continuación, se muestra un ejemplo de cómo se ve la configuración final de
 
 ![Imagen 1](img/img1.png)
 
-![Imagen 1](img/img2.png)
+![Imagen 2](img/img2.png)
 
-![Imagen 1](img/img3.png)
+![Imagen 3](img/img3.png)
+
+![Imagen 4](img/img4.png)
+
+![Imagen 5](img/img5.png)
+
+![Imagen 6](img/img6.png)
+
+![Imagen 7](img/img7.png)
+
+![Imagen 8](img/img8.png)
 
 ## Créditos
 
