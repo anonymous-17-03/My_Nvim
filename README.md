@@ -41,12 +41,14 @@ Este repositorio contiene mi configuración personalizada de Neovim, diseñada p
 - init.lua: Archivo principal que carga la configuración base.
 - lazy-lock.json: Archivo generado por Lazy.nvim para gestionar las dependencias de los plugins.
 - lua/base: Contiene la configuración básica de Neovim y la gestión de plugins.
-- init.lua: Configuración inicial.
+- lua/base/init.lua: Configuración inicial.
+- lua/base/keymaps.lua: ALgunos atajos de teclados utiles.
+- lua/base/notify.lua: Configuración general de las notificaciones y bienvenidas.
 - plugins/init.lua: Configuración general de los plugins.
 - plugins/lazy.lua: Configuración específica de Lazy.nvim.
 - lua/configs: Directorio con configuraciones específicas para plugins y funcionalidades.
 - formating.lua: Configuración de formateo de código.
-- lazy.lua: Configuración avanzada para Lazy.nvim.
+- lazy.lua: Configuración avanzada para Lazy.nvim (Los nuevos plugins se agregan aquí).
 - lspconfig.lua: Configuración para LSP (Language Server Protocol).
 - lualine.lua: Configuración de la barra de estado Lualine.
 - mason.lua: Configuración de Mason para la gestión de LSPs, DAPs, etc.
@@ -60,9 +62,10 @@ Este repositorio contiene mi configuración personalizada de Neovim, diseñada p
 
 ## Requisitos Previos
 
-- Neovim 0.8 o superior.
+- NVIM v0.10.0 o superior.
 - Git para clonar este repositorio.
 - Node.js y npm para soporte de algunas características.
+- Paquetes: `gcc`, `fzf`, `fd`, `ripgrep`, `bat`, `curl` y `lazygit`.
 
 ## Instalación
 
@@ -83,8 +86,7 @@ Luego, después de instalar todos los complementos, ejecute `:MasonInstallAll` d
 
 ## Notas
 
-Las 2 notificaciones al entrar a nvim son de ejemplo pueden editarlas en los archivos de configuración.
-El archivo se encuentra en `lua/base/init.lua` en el apartado `-- Configuración global`
+La notificacion de bienvenida al entrar a nvim son de ejemplo, pueden editarlas en los archivos de configuración, el archivo se encuentra en `lua/base/notify.lua` en el apartado `-- Mensaje de bienvenida`.
 
 ## Características
 
@@ -95,6 +97,7 @@ El archivo se encuentra en `lua/base/init.lua` en el apartado `-- Configuración
 - NvimTree: Explorador de archivos tipo árbol.
 - Mason: Gestión de herramientas de desarrollo como LSPs y DAPs.
 - Rust Tools: Mejor soporte para desarrollo en Rust.
+- Y muchas más funcionalidades (Puede ver el codigo completamente documentado).
 
 ## Capturas de Pantalla
 
@@ -108,7 +111,7 @@ A continuación, se muestra un ejemplo de cómo se ve la configuración final de
 
 ## Créditos
 
-FStanDev por la inspiración inicial.
+[FStanDev](https://youtu.be/RYAfhkw_1QQ?si=A1tYsU0XbrQSYIlG) por la inspiración inicial.
 
 ## Contribuciones
 

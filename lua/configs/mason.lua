@@ -1,4 +1,13 @@
 return {
+	ui = {
+		border = "rounded", -- requerido para activar los siguientes caracteres
+		borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+		icons = {
+			package_installed = "✓",
+			package_pending = "➜",
+			package_uninstalled = "✗",
+		},
+	},
 	ensure_installed = {
 		-- Lenguajes y herramientas que Mason debe instalar automáticamente
 		"lua-language-server",

@@ -24,4 +24,9 @@ vim.opt.rtp:prepend(lazypath)
 plugins = require("configs.lazy")
 
 -- Llama a la función de configuración de Lazy.nvim y pasa la lista de plugins
-require("lazy").setup(plugins)
+require("lazy").setup(plugins, {
+	ui = {
+		border = "rounded",
+		borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+	},
+})

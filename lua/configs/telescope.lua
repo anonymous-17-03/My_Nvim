@@ -69,7 +69,7 @@ local wk = require("which-key")
 
 wk.register({
 	f = {
-		name = "  Telescope", -- Ícono general de búsqueda
+		name = "Telescope", -- Ícono general de búsqueda
 		f = { builtin.find_files, "󰱼 Buscar Archivo" }, -- Buscar archivos en el proyecto
 		g = { builtin.live_grep, "󰱽 Buscar Texto" }, -- Buscar texto dentro de archivos
 		b = { builtin.buffers, "󰓩 Ver Buffers" }, -- Listar buffers abiertos

@@ -25,7 +25,7 @@ wk.register({
 
 	-- Debug (Dap)
 	["<leader>d"] = {
-		name = " Debug",
+		name = "Debug",
 		b = { vim.cmd.DapToggleBreakpoint, " Alternar breakpoint" },
 		-- Puedes agregar más comandos DAP aquí, por ejemplo:
 		c = { vim.cmd.DapContinue, " Continuar" },

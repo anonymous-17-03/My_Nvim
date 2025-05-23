@@ -85,13 +85,13 @@ return {
 			local gtp = require("goto-preview")
 			wk.register({
 				["<leader>g"] = {
-					name = "👁️ Goto Preview",
-					d = { gtp.goto_preview_definition, "🔍 Preview Definition" },
-					D = { gtp.goto_preview_declaration, "📜 Preview Declaration" },
-					i = { gtp.goto_preview_implementation, "🔧 Preview Implementation" },
-					r = { gtp.goto_preview_references, "📚 Preview References" },
-					t = { gtp.goto_preview_type_definition, "🔠 Preview Type Definition" },
-					c = { gtp.close_all_win, "❌ Close all preview windows" },
+					name = "  Goto Preview",
+					d = { gtp.goto_preview_definition, " Preview Definition" },
+					D = { gtp.goto_preview_declaration, " Preview Declaration" },
+					i = { gtp.goto_preview_implementation, "󰮲 Preview Implementation" },
+					r = { gtp.goto_preview_references, " Preview References" },
+					t = { gtp.goto_preview_type_definition, " Preview Type Definition" },
+					c = { gtp.close_all_win, " Close all preview windows" },
 				},
 			}, { mode = "n" }) -- solo modo normal
 		end,
@@ -421,15 +421,15 @@ return {
 					n = { "<cmd>NvimTreeFocus<cr>", " Enfocar NvimTree" },
 					w = {
 						name = " Ventana",
-						s = { "<cmd>split<cr>", "󰯌 División Horizontal" },
-						v = { "<cmd>vsplit<cr>", "󰯅 División Vertical" },
+						s = { "<cmd>split<cr>", " División Horizontal" },
+						v = { "<cmd>vsplit<cr>", " División Vertical" },
 					},
 					r = {
 						name = "󰑕 Renombrar",
 						v = { "<cmd>rv<cr>", " Renombrar Variable" },
 					},
 					c = {
-						name = "󰛲 Corrección",
+						name = "󰯅 Corrección",
 						a = { "<cmd>ca<cr>", " Acciones de Código" },
 					},
 				},
