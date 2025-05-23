@@ -24,6 +24,7 @@ return {
 		"codelldb", -- depurador para C/C++
 		"debugpy", -- depurador para Python
 		"bash-language-server",
+		"astro-language-server",
 	},
 	max_concurrent_installers = 15, -- Límite de instalaciones simultáneas
 }

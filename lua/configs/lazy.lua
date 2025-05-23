@@ -267,6 +267,24 @@ return {
 			require("dap-python").setup(path)
 		end,
 	},
+	{
+		"stevearc/oil.nvim",
+		cmd = "Oil", -- Carga perezosa al usar el comando :Oil
+		keys = {
+			{ "-", "<cmd>Oil<cr>", desc = "󱥇 Open Oil File Explorer" },
+		},
+		opts = {
+			default_file_explorer = true, -- Reemplaza netrw
+			view_options = {
+				show_hidden = true, -- Muestra archivos ocultos
+			},
+			float = {
+				padding = 2,
+				border = "rounded",
+			},
+		},
+		dependencies = { "nvim-tree/nvim-web-devicons" }, -- Opcional para íconos
+	},
 
 	-- ui: Ej. noice, notify, tokyonight, dashboard, lualine, nvim-tree
 	{
