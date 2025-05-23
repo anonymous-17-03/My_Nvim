@@ -15,6 +15,88 @@ return {
 		end,
 	},
 	{
+		"koenverburg/peepsight.nvim",
+		event = "BufReadPost",
+		config = function()
+			require("peepsight").setup({
+				-- Go
+				"function_declaration",
+				"method_declaration",
+				"func_literal",
+
+				-- TypeScript / JS
+				"class_declaration",
+				"method_definition",
+				"arrow_function",
+				"function_declaration",
+				"generator_function_declaration",
+
+				-- Python
+				"function_definition",
+				"class_definition",
+				"if_statement",
+				"for_statement",
+				"while_statement",
+
+				-- Lua
+				"function_declaration",
+				"function_definition",
+				"local_function",
+				"do_statement",
+
+				-- C/C++
+				"function_definition",
+				"compound_statement",
+
+				-- Rust
+				"function_item",
+				"impl_item",
+
+				-- Common
+				"block",
+			})
+		end,
+	},
+	{
+		"rmagatti/goto-preview",
+		dependencies = {
+			"rmagatti/logger.nvim",
+			"folke/which-key.nvim", -- para mostrar los atajos en pantalla
+		},
+		event = "BufEnter",
+		config = function()
+			-- Setup de goto-preview
+			require("goto-preview").setup({
+				width = 120,
+				height = 25,
+				border = "rounded", -- Bordes bonitos
+				resizing_mappings = false,
+				debug = false,
+				opacity = nil,
+				post_open_hook = nil,
+				post_close_hook = nil,
+				references = {
+					telescope = require("telescope.themes").get_dropdown({ hide_preview = false }),
+				},
+			})
+
+			-- Setup de which-key
+			local wk = require("which-key")
+			local gtp = require("goto-preview")
+			wk.register({
+				["<leader>g"] = {
+					name = "👁️ Goto Preview",
+					d = { gtp.goto_preview_definition, "🔍 Preview Definition" },
+					D = { gtp.goto_preview_declaration, "📜 Preview Declaration" },
+					i = { gtp.goto_preview_implementation, "🔧 Preview Implementation" },
+					r = { gtp.goto_preview_references, "📚 Preview References" },
+					t = { gtp.goto_preview_type_definition, "🔠 Preview Type Definition" },
+					c = { gtp.close_all_win, "❌ Close all preview windows" },
+				},
+			}, { mode = "n" }) -- solo modo normal
+		end,
+	},
+	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		config = function()
@@ -107,6 +189,10 @@ return {
 			cmp.setup({
 				completion = {
 					completeopt = "menu,menuone,preview,noselect",
+				},
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
 				},
 				snippet = { -- configure how nvim-mp interacts with snippet engine
 					expand = function(args)
@@ -222,6 +308,10 @@ return {
 		config = function(_, opts)
 			require("nvim-tree").setup(opts)
 		end,
+	},
+	{
+		"echasnovski/mini.icons",
+		version = "*",
 	},
 
 	-- Terminal: Ej. toggleterm
