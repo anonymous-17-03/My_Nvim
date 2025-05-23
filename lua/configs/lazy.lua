@@ -116,6 +116,7 @@ return {
 					"cpp",
 					"python",
 					"yaml",
+					"astro",
 				},
 				sync_install = false,
 				highlight = { enable = true },
