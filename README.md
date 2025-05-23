@@ -8,26 +8,34 @@ Este repositorio contiene mi configuración personalizada de Neovim, diseñada p
 
 ```bash
 .
+├── img
+│   ├── img1.png
+│   ├── img2.png
+│   ├── img3.png
+│   └── logo.webp
 ├── init.lua
-└── lua
-    ├── base
-    │   ├── init.lua
-    │   └── plugins
-    │       ├── init.lua
-    │       └── lazy.lua
-    ├── configs
-    │   ├── formating.lua
-    │   ├── lazy.lua
-    │   ├── lspconfig.lua
-    │   ├── lualine.lua
-    │   ├── mason.lua
-    │   ├── nvim-cmp.lua
-    │   ├── nvimtree.lua
-    │   ├── others.lua
-    │   ├── rust-tools.lua
-    │   ├── telescope.lua
-    │   └── utils.lua
-    └── themes_lualine.zip
+├── lua
+│   ├── base
+│   │   ├── init.lua
+│   │   ├── keymaps.lua
+│   │   ├── notify.lua
+│   │   └── plugins
+│   │       ├── init.lua
+│   │       └── lazy.lua
+│   ├── configs
+│   │   ├── formating.lua
+│   │   ├── lazy.lua
+│   │   ├── lspconfig.lua
+│   │   ├── lualine.lua
+│   │   ├── mason.lua
+│   │   ├── nvim-cmp.lua
+│   │   ├── nvimtree.lua
+│   │   ├── others.lua
+│   │   ├── rust-tools.lua
+│   │   ├── telescope.lua
+│   │   └── utils.lua
+│   └── themes_lualine.zip
+└── README.md
 ```
 
 - init.lua: Archivo principal que carga la configuración base.
