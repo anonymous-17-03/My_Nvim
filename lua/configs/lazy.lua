@@ -297,6 +297,12 @@ return {
 		},
 	},
 	{
+		"nvzone/typr",
+		dependencies = "nvzone/volt",
+		opts = {},
+		cmd = { "Typr", "TyprStats" },
+	},
+	{
 		"nvimdev/dashboard-nvim",
 		event = "VimEnter",
 		config = function()
@@ -441,6 +447,29 @@ return {
 		end,
 		config = function(_, opts)
 			require("gitsigns").setup(opts)
+		end,
+	},
+	{
+		"kdheepak/lazygit.nvim",
+		lazy = false,
+		cmd = {
+			"LazyGit",
+			"LazyGitConfig",
+			"LazyGitCurrentFile",
+			"LazyGitFilter",
+			"LazyGitFilterCurrentFile",
+		},
+		-- optional for floating window border decoration
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"nvim-lua/plenary.nvim",
+		},
+		-- Atajo de teclado
+		keys = {
+			{ "<leader>hg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+		},
+		config = function()
+			require("telescope").load_extension("lazygit")
 		end,
 	},
 

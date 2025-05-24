@@ -120,6 +120,10 @@ A continuación, se muestra un ejemplo de cómo se ve la configuración final de
 
 ![Imagen 8](img/img8.png)
 
+![Imagen 9](img/img9.png)
+
+![Imagen 10](img/img10.png)
+
 ## Créditos
 
 [FStanDev](https://youtu.be/RYAfhkw_1QQ?si=A1tYsU0XbrQSYIlG) por la inspiración inicial.
