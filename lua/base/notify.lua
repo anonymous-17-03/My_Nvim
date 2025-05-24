@@ -18,8 +18,6 @@ notify.setup({
 })
 
 -- Mensaje de bienvenida
--- notify("🚀 Bienvenido de nuevo NameUser", "info", { title = "Nvim", timeout = 3000, })
--- notify("💀 Bienvenido de nuevo root", "error", { title = "Nvim", timeout = 3000, })
 local user = vim.loop.os_get_passwd().username
 local is_root = vim.loop.getuid() == 0
 
