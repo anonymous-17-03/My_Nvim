@@ -129,12 +129,12 @@ Luego, después de instalar todos los complementos, ejecute `:MasonInstallAll` d
 - NvimTree: Explorador de archivos tipo árbol.
 - Mason: Gestión de herramientas de desarrollo como LSPs y DAPs.
 - Rust Tools: Mejor soporte para desarrollo en Rust.
-- Previsualización de archivos Markdown los siguientes concomandos: `:Glow`, `:MarkdownPreview` y `:PeekOpen`.
+- Previsualización de archivos Markdown con los siguientes comandos: `:Glow`, `:MarkdownPreview` y `:PeekOpen`.
 - Y muchas más funcionalidades (Puede ver el codigo completamente documentado).
 
 ## Capturas de Pantalla
 
-A continuación, se muestra un ejemplo de cómo se ve la configuración final de nvim:
+A continuación, se muestran algunos ejemplos de cómo se ve la configuración final de nvim:
 
 ![Imagen 1](img/img1.png)
 
