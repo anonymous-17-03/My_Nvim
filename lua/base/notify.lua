@@ -9,11 +9,11 @@ notify.setup({
 	max_width = 50,
 	background_colour = "#000000",
 	icons = {
-		ERROR = "",
-		WARN = "",
-		INFO = "",
-		DEBUG = "",
-		TRACE = "✎",
+		ERROR = " ",
+		WARN = " ",
+		INFO = " ",
+		DEBUG = " ",
+		TRACE = "✎ ",
 	},
 })
 
