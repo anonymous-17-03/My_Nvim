@@ -129,9 +129,10 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-context",
-		config = function()
-			require("treesitter-context").setup({})
-		end,
+		-- config = function()
+		-- 	require("treesitter-context").setup({})
+		-- end,
+		enabled = false,
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
