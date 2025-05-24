@@ -66,15 +66,17 @@ telescope.setup({
 
 -- Configuración de atajos de teclado usando which-key para facilitar la navegación
 local wk = require("which-key")
+local builtin = require("telescope.builtin")
 
-wk.register({
-	f = {
-		name = "Telescope", -- Ícono general de búsqueda
-		f = { builtin.find_files, "󰱼 Buscar Archivo" }, -- Buscar archivos en el proyecto
-		g = { builtin.live_grep, "󰱽 Buscar Texto" }, -- Buscar texto dentro de archivos
-		b = { builtin.buffers, "󰓩 Ver Buffers" }, -- Listar buffers abiertos
-		h = { builtin.help_tags, "󰘥 Buscar Ayuda" }, -- Buscar en la ayuda de Vim/Neovim
-		r = { builtin.oldfiles, "󰋚 Archivos Recientes" }, -- Archivos recientemente abiertos
-		n = { "<cmd>enew<cr>", " Nuevo Archivo" }, -- Crear un nuevo buffer sin nombre (nuevo archivo)
-	},
-}, { prefix = "<leader>" })
+wk.add({
+	-- Grupo principal
+	{ "<leader>f", group = "Telescope" },
+
+	-- Mapeos individuales
+	{ "<leader>ff", builtin.find_files, desc = "󰱼 Buscar Archivo" },
+	{ "<leader>fg", builtin.live_grep, desc = "󰱽 Buscar Texto" },
+	{ "<leader>fb", builtin.buffers, desc = "󰓩 Ver Buffers" },
+	{ "<leader>fh", builtin.help_tags, desc = "󰘥 Buscar Ayuda" },
+	{ "<leader>fr", builtin.oldfiles, desc = "󰋚 Archivos Recientes" },
+	{ "<leader>fn", "<cmd>enew<cr>", desc = " Nuevo Archivo" },
+}, { mode = "n" })

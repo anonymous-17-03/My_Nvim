@@ -83,16 +83,18 @@ return {
 			-- Setup de which-key
 			local wk = require("which-key")
 			local gtp = require("goto-preview")
-			wk.register({
-				["<leader>g"] = {
-					name = "  Goto Preview",
-					d = { gtp.goto_preview_definition, " Preview Definition" },
-					D = { gtp.goto_preview_declaration, " Preview Declaration" },
-					i = { gtp.goto_preview_implementation, "󰮲 Preview Implementation" },
-					r = { gtp.goto_preview_references, " Preview References" },
-					t = { gtp.goto_preview_type_definition, " Preview Type Definition" },
-					c = { gtp.close_all_win, " Close all preview windows" },
-				},
+
+			wk.add({
+				-- Grupo principal: Goto Preview
+				{ "<leader>g", group = "  Goto Preview" },
+
+				-- Mapeos individuales
+				{ "<leader>gd", gtp.goto_preview_definition, desc = " Preview Definition" },
+				{ "<leader>gD", gtp.goto_preview_declaration, desc = " Preview Declaration" },
+				{ "<leader>gi", gtp.goto_preview_implementation, desc = "󰮲 Preview Implementation" },
+				{ "<leader>gr", gtp.goto_preview_references, desc = " Preview References" },
+				{ "<leader>gt", gtp.goto_preview_type_definition, desc = " Preview Type Definition" },
+				{ "<leader>gc", gtp.close_all_win, desc = " Close all preview windows" },
 			}, { mode = "n" }) -- solo modo normal
 		end,
 	},
@@ -429,16 +431,14 @@ return {
 			-- Mapeos para abrir terminales en diferentes direcciones
 			-- Registro en which-key con íconos
 			local wk = require("which-key")
-			wk.register({
-				["<leader>"] = {
-					t = {
-						name = " Terminal",
-						f = { "<cmd>ToggleTerm direction=float<cr>", " Terminal Flotante" },
-						v = { "<cmd>ToggleTerm direction=vertical<cr>", " Terminal Vertical" },
-						h = { "<cmd>ToggleTerm direction=horizontal<cr>", " Terminal Horizontal" },
-					},
-				},
-			})
+
+			wk.add({
+				-- Grupo principal: Terminal
+				{ "<leader>t", group = " Terminal" },
+				{ "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = " Terminal Flotante" },
+				{ "<leader>tv", "<cmd>ToggleTerm direction=vertical<cr>", desc = " Terminal Vertical" },
+				{ "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>", desc = " Terminal Horizontal" },
+			}, { mode = "n" }) -- modo normal
 		end,
 	},
 
@@ -547,28 +547,37 @@ return {
 	-- Keymaps: Ej. which-key
 	{
 		"folke/which-key.nvim",
-		lazy = false,
+		event = "VeryLazy",
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
+		keys = {
+			{
+				"<leader>?",
+				function()
+					require("which-key").show({ global = false })
+				end,
+				desc = "󰺽 Buffer Local Keymaps",
+			},
+		},
 		config = function()
 			local wk = require("which-key")
-
 			wk.setup({})
-			wk.register({
-				["<leader>"] = {
-					n = { "<cmd>NvimTreeFocus<cr>", " Enfocar NvimTree" },
-					w = {
-						name = " Ventana",
-						h = { "<cmd>split<cr>", " División Horizontal" },
-						v = { "<cmd>vsplit<cr>", " División Vertical" },
-					},
-					r = {
-						name = "󰑕 Renombrar",
-						v = { "<cmd>rv<cr>", " Renombrar Variable" },
-					},
-					c = {
-						name = "󰯅 Corrección",
-						a = { "<cmd>ca<cr>", " Acciones de Código" },
-					},
-				},
+
+			wk.add({
+				{ "<leader>c", group = "󰯅 Corrección" },
+				{ "<leader>ca", "<cmd>ca<cr>", desc = " Acciones de Código" },
+
+				{ "<leader>n", "<cmd>NvimTreeFocus<cr>", desc = " Enfocar NvimTree" },
+
+				{ "<leader>r", group = "󰑕 Renombrar" },
+				{ "<leader>rv", "<cmd>rv<cr>", desc = " Renombrar Variable" },
+
+				{ "<leader>w", group = " Ventana" },
+				{ "<leader>wh", "<cmd>split<cr>", desc = " División Horizontal" },
+				{ "<leader>wv", "<cmd>vsplit<cr>", desc = " División Vertical" },
 			})
 		end,
 	},

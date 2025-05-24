@@ -11,43 +11,38 @@ local function close_other_buffers()
 	end
 end
 
--- Registrar todos los atajos con which-key
-wk.register({
-	-- NvimTree
-	["<leader>e"] = { vim.cmd.NvimTreeFocus, "󰙅 Enfocar NvimTree" },
-	["<C-n>"] = { vim.cmd.NvimTreeToggle, " Alternar NvimTree" },
+wk.add({
 
-	-- Navegación buffers simple (sin grupo)
-	["<leader>1"] = { vim.cmd.bfirst, "󰁉 Primer buffer" },
-	["<leader>0"] = { vim.cmd.blast, "󰧒 Último buffer" },
-	["<Tab>"] = { vim.cmd.bnext, " Siguiente buffer" },
-	["<S-Tab>"] = { vim.cmd.bprevious, " Buffer anterior" },
+	-- 🔳 NvimTree
+	{ "<leader>e", vim.cmd.NvimTreeFocus, desc = "󰙅 Enfocar NvimTree" },
+	{ "<C-n>", vim.cmd.NvimTreeToggle, desc = " Alternar NvimTree" },
 
-	-- Debug (Dap)
-	["<leader>d"] = {
-		name = "Debug",
-		b = { vim.cmd.DapToggleBreakpoint, " Alternar breakpoint" },
-		-- Puedes agregar más comandos DAP aquí, por ejemplo:
-		c = { vim.cmd.DapContinue, " Continuar" },
-	},
+	-- 🔃 Navegación de Buffers sin grupo
+	{ "<leader>1", vim.cmd.bfirst, desc = "󰁉 Primer buffer" },
+	{ "<leader>0", vim.cmd.blast, desc = "󰧒 Último buffer" },
+	{ "<Tab>", vim.cmd.bnext, desc = " Siguiente buffer" },
+	{ "<S-Tab>", vim.cmd.bprevious, desc = " Buffer anterior" },
 
-	-- Grupo buffers
-	["<leader>b"] = {
-		name = " Buffer",
-		n = { "<cmd>bn<cr>", " Siguiente Buffer" },
-		p = { "<cmd>bp<cr>", " Buffer Anterior" },
-		d = { "<cmd>bdelete<cr>", " Cerrar buffer actual" },
-		o = { close_other_buffers, "󰧮 Cerrar otros buffers" },
-	},
+	-- 🐞 Debug (DAP)
+	{ "<leader>d", group = "Debug" },
+	{ "<leader>db", vim.cmd.DapToggleBreakpoint, desc = " Alternar breakpoint" },
+	{ "<leader>dc", vim.cmd.DapContinue, desc = " Continuar" },
 
-	-- Cierre de ventanas
-	["<leader>wd"] = { vim.cmd.close, " Cerrar ventana actual" },
+	-- 📑 Buffers
+	{ "<leader>b", group = " Buffer" },
+	{ "<leader>bn", "<cmd>bn<cr>", desc = " Siguiente Buffer" },
+	{ "<leader>bp", "<cmd>bp<cr>", desc = " Buffer Anterior" },
+	{ "<leader>bd", "<cmd>bdelete<cr>", desc = " Cerrar buffer actual" },
+	{ "<leader>bo", close_other_buffers, desc = "󰧮 Cerrar otros buffers" },
 
-	-- Otros
-	["<leader>e"] = { "<cmd>noh<CR>", "󰚰 Eliminar resaltado de búsqueda" },
+	-- 🪟 Ventanas
+	{ "<leader>wd", vim.cmd.close, desc = " Cerrar ventana actual" },
 
-	-- Guardado rápido (modo normal)
-	["<C-s>"] = { "<cmd>w<CR>", "󰈞 Guardar archivo" },
-	["<S-s>"] = { "<cmd>x<CR>", "󰗼 Guardar y salir" },
-	["<A-s>"] = { "<cmd>wa<CR>", " Guardar todos los archivos" },
+	-- ✨ Otros
+	{ "<leader>e", "<cmd>noh<CR>", desc = "󰚰 Eliminar resaltado de búsqueda" },
+
+	-- 💾 Guardado rápido
+	{ "<C-s>", "<cmd>w<CR>", desc = "󰈞 Guardar archivo" },
+	{ "<S-s>", "<cmd>x<CR>", desc = "󰗼 Guardar y salir" },
+	{ "<A-s>", "<cmd>wa<CR>", desc = " Guardar todos los archivos" },
 }, { mode = "n" })

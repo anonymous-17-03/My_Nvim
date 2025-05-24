@@ -19,55 +19,48 @@ lspconfig.bashls.setup({}) -- Bash
 -- Registro en which-key
 local wk = require("which-key")
 
--- Atajos globales
-wk.register({
-	["<space>m"] = { vim.diagnostic.open_float, " Mostrar error flotante" },
-	["<space>q"] = { vim.diagnostic.setloclist, " Mostrar lista de diagnósticos" },
-	["[d"] = { vim.diagnostic.goto_prev, " Ir al error anterior" },
-	["]d"] = { vim.diagnostic.goto_next, " Ir al siguiente error" },
-}, { mode = "n" }) -- modo normal
+-- Mapeos en modo normal
+wk.add({
+	-- Globales
+	{ "<space>m", vim.diagnostic.open_float, desc = " Mostrar error flotante" },
+	{ "<space>q", vim.diagnostic.setloclist, desc = " Mostrar lista de diagnósticos" },
+	{ "[d", vim.diagnostic.goto_prev, desc = " Ir al error anterior" },
+	{ "]d", vim.diagnostic.goto_next, desc = " Ir al siguiente error" },
 
--- Atajos agrupados bajo <leader>l para LSP
-wk.register({
-	["<leader>l"] = {
-		name = "  LSP",
+	-- Grupo general LSP
+	{ "<leader>l", group = "  LSP" },
 
-		g = {
-			name = " Ir a",
-			D = { vim.lsp.buf.declaration, " Ir a declaración" },
-			d = { vim.lsp.buf.definition, " Ir a definición" },
-			i = { vim.lsp.buf.implementation, " Ir a implementación" },
-			r = { vim.lsp.buf.references, " Ver referencias" },
-		},
+	-- Subgrupo: Ir a
+	{ "<leader>lg", group = " Ir a" },
+	{ "<leader>lgD", vim.lsp.buf.declaration, desc = " Ir a declaración" },
+	{ "<leader>lgd", vim.lsp.buf.definition, desc = " Ir a definición" },
+	{ "<leader>lgi", vim.lsp.buf.implementation, desc = " Ir a implementación" },
+	{ "<leader>lgr", vim.lsp.buf.references, desc = " Ver referencias" },
 
-		h = { vim.lsp.buf.hover, "󰘥 Mostrar documentación" },
-		s = { vim.lsp.buf.signature_help, "󰘥 Ayuda de firma" },
-		D = { vim.lsp.buf.type_definition, " Ver tipo de definición" },
-		r = { vim.lsp.buf.rename, " Renombrar símbolo" },
-		a = { vim.lsp.buf.code_action, " Acción de código" },
-		f = {
-			function()
-				vim.lsp.buf.format({ async = true })
-			end,
-			" Formatear buffer",
-		},
+	-- Acciones generales
+	{ "<leader>lh", vim.lsp.buf.hover, desc = "󰘥 Mostrar documentación" },
+	{ "<leader>ls", vim.lsp.buf.signature_help, desc = "󰘥 Ayuda de firma" },
+	{ "<leader>lD", vim.lsp.buf.type_definition, desc = " Ver tipo de definición" },
+	{ "<leader>lr", vim.lsp.buf.rename, desc = " Renombrar símbolo" },
+	{ "<leader>la", vim.lsp.buf.code_action, desc = " Acción de código" },
 
-		w = {
-			name = "󱂬 Workspace",
-			a = {
-				vim.lsp.buf.add_workspace_folder,
-				"[+] Agregar carpeta al espacio de trabajo",
-			},
-			r = {
-				vim.lsp.buf.remove_workspace_folder,
-				"[-] Eliminar carpeta del espacio de trabajo",
-			},
-			l = {
-				function()
-					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-				end,
-				"{.} Listar carpetas del espacio de trabajo",
-			},
-		},
+	{
+		"<leader>lf",
+		function()
+			vim.lsp.buf.format({ async = true })
+		end,
+		desc = " Formatear buffer",
 	},
-})
+
+	-- Subgrupo: Workspace
+	{ "<leader>lw", group = "󱂬 Workspace" },
+	{ "<leader>lwa", vim.lsp.buf.add_workspace_folder, desc = "[+] Agregar carpeta al espacio de trabajo" },
+	{ "<leader>lwr", vim.lsp.buf.remove_workspace_folder, desc = "[-] Eliminar carpeta del espacio de trabajo" },
+	{
+		"<leader>lwl",
+		function()
+			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+		end,
+		desc = "{.} Listar carpetas del espacio de trabajo",
+	},
+}, { mode = "n" }) -- modo normal

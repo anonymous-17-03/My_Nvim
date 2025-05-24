@@ -62,18 +62,15 @@ end
 
 -- Configuración para gitsigns.nvim
 local wk = require("which-key")
-
 local function gitsigns_attach_mappings(bufnr)
-	wk.register({
-		["<leader>h"] = {
-			name = "󰊢 Hunk",
-			s = { ":Gitsigns stage_hunk<CR>", " Stage hunk" },
-			u = { ":Gitsigns undo_stage_hunk<CR>", "󰑐 Undo stage hunk" },
-			r = { ":Gitsigns reset_hunk<CR>", " Reset hunk" },
-			p = { ":Gitsigns preview_hunk<CR>", " Preview hunk" },
-			b = { ":Gitsigns blame_line<CR>", "󰊛 Blame line" },
-		},
-	}, { buffer = bufnr, mode = "n" })
+	wk.add({
+		{ "<leader>h", group = "󰊢 Hunk" },
+		{ "<leader>hs", ":Gitsigns stage_hunk<CR>", desc = " Stage hunk" },
+		{ "<leader>hu", ":Gitsigns undo_stage_hunk<CR>", desc = "󰑐 Undo stage hunk" },
+		{ "<leader>hr", ":Gitsigns reset_hunk<CR>", desc = " Reset hunk" },
+		{ "<leader>hp", ":Gitsigns preview_hunk<CR>", desc = " Preview hunk" },
+		{ "<leader>hb", ":Gitsigns blame_line<CR>", desc = "󰊛 Blame line" },
+	}, { mode = "n", buffer = bufnr })
 end
 
 M = {}
@@ -86,6 +83,13 @@ M.gitsigns = {
 		topdelete = { text = "‾" }, -- Símbolo para borrado al inicio
 		changedelete = { text = "~" }, -- Línea para cambios + borrado
 		untracked = { text = "│" }, -- Línea para archivos nuevos sin seguimiento
+	},
+	preview_config = {
+		border = "rounded", -- Bordes redondeados
+		style = "minimal",
+		relative = "cursor",
+		row = 1,
+		col = 1,
 	},
 	on_attach = function(bufnr)
 		gitsigns_attach_mappings(bufnr)
