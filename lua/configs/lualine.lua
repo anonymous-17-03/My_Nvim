@@ -2,5 +2,5 @@
 
 -- Theme defauld: NovaHacking
 -- Themes: bubbles, slanted, back, evil
-local theme_name = "bubbles"
+local theme_name = "NovaHacking"
 require("lualine_themes." .. theme_name)
