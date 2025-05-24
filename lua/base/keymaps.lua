@@ -14,7 +14,7 @@ end
 wk.add({
 
 	-- 🔳 NvimTree
-	{ "<leader>e", vim.cmd.NvimTreeFocus, desc = "󰙅 Enfocar NvimTree" },
+	{ "<leader>n", vim.cmd.NvimTreeFocus, desc = "󰙅 Enfocar NvimTree" },
 	{ "<C-n>", vim.cmd.NvimTreeToggle, desc = " Alternar NvimTree" },
 
 	-- 🔃 Navegación de Buffers sin grupo

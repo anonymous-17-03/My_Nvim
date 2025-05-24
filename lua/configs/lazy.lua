@@ -570,8 +570,6 @@ return {
 				{ "<leader>c", group = "󰯅 Corrección" },
 				{ "<leader>ca", "<cmd>ca<cr>", desc = " Acciones de Código" },
 
-				{ "<leader>n", "<cmd>NvimTreeFocus<cr>", desc = " Enfocar NvimTree" },
-
 				{ "<leader>r", group = "󰑕 Renombrar" },
 				{ "<leader>rv", "<cmd>rv<cr>", desc = " Renombrar Variable" },
 
