@@ -118,12 +118,19 @@ return {
 					"cpp",
 					"python",
 					"yaml",
+					"json",
 					"astro",
 				},
 				sync_install = false,
 				highlight = { enable = true },
 				indent = { enable = true },
 			})
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		config = function()
+			require("treesitter-context").setup({})
 		end,
 	},
 	{
