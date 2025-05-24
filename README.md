@@ -7,53 +7,53 @@ Este repositorio contiene mi configuración personalizada de Neovim, diseñada p
 ## Estructura del Proyecto
 
 ```bash
- .
-├──  img
-│  ├──  img1.png
-│  ├──  img2.png
-│  ├──  img3.png
-│  ├──  img4.png
-│  ├──  img5.png
-│  ├──  img6.png
-│  ├──  img7.png
-│  ├──  img8.png
-│  ├──  img9.png
-│  ├──  img10.png
-│  └──  logo.webp
-├──  init.lua
-├──  lua
-│  ├──  base
-│  │  ├──  init.lua
-│  │  ├──  keymaps.lua
-│  │  ├──  notify.lua
-│  │  └──  plugins
-│  │     ├──  init.lua
-│  │     └──  lazy.lua
-│  ├──  configs
-│  │  ├──  formating.lua
-│  │  ├──  lazy.lua
-│  │  ├──  lspconfig.lua
-│  │  ├──  lualine.lua
-│  │  ├──  mason.lua
-│  │  ├──  nvim-cmp.lua
-│  │  ├──  nvimtree.lua
-│  │  ├──  others.lua
-│  │  ├──  rust-tools.lua
-│  │  ├──  telescope.lua
-│  │  └──  utils.lua
-│  ├──  lualine_themes
-│  │  ├──  back.lua
-│  │  ├──  bubbles.lua
-│  │  ├──  evil.lua
-│  │  ├──  NovaHacking.lua
-│  │  └──  slanted.lua
-│  └──  plugins_lazy
-│     ├──  editor.lua
-│     ├──  git.lua
-│     ├──  markdown.lua
-│     ├──  terminal.lua
-│     └──  ui.lua
-└──  README.md
+.
+├── img
+│   ├── img10.png
+│   ├── img1.png
+│   ├── img2.png
+│   ├── img3.png
+│   ├── img4.png
+│   ├── img5.png
+│   ├── img6.png
+│   ├── img7.png
+│   ├── img8.png
+│   ├── img9.png
+│   └── logo.webp
+├── init.lua
+├── lua
+│   ├── base
+│   │   ├── init.lua
+│   │   ├── keymaps.lua
+│   │   ├── notify.lua
+│   │   └── plugins
+│   │       ├── init.lua
+│   │       └── lazy.lua
+│   ├── configs
+│   │   ├── formating.lua
+│   │   ├── lazy.lua
+│   │   ├── lspconfig.lua
+│   │   ├── lualine.lua
+│   │   ├── mason.lua
+│   │   ├── nvim-cmp.lua
+│   │   ├── nvimtree.lua
+│   │   ├── others.lua
+│   │   ├── rust-tools.lua
+│   │   ├── telescope.lua
+│   │   └── utils.lua
+│   ├── lualine_themes
+│   │   ├── back.lua
+│   │   ├── bubbles.lua
+│   │   ├── evil.lua
+│   │   ├── NovaHacking.lua
+│   │   └── slanted.lua
+│   └── plugins_lazy
+│       ├── editor.lua
+│       ├── git.lua
+│       ├── markdown.lua
+│       ├── terminal.lua
+│       └── ui.lua
+└── README.md
 ```
 
 Estructura:
