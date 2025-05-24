@@ -94,7 +94,7 @@ Estructura:
     - `markdown.lua`: Plugins orientados a la edición y vista de archivos Markdown.
     - `terminal.lua`: Configuración de terminales embebidas dentro de Neovim.
     - `ui.lua`: Plugins que afectan la interfaz de usuario (temas, íconos, notificaciones, etc.).
-- `README.md`: Documento principal que explica cómo usar, configurar o instalar tu entorno Neovim personalizado. También puede incluir capturas de pantalla y explicaciones visuales (usa las imágenes en `img/`).
+- `README.md`: Documento principal que explica cómo usar, configurar e instalar este entorno Neovim personalizado.
 
 ## Requisitos Previos
 
@@ -119,10 +119,6 @@ git clone https://github.com/anonymous-17-03/My_Nvim.git ~/.config/nvim && nvim
 ```
 
 Luego, después de instalar todos los complementos, ejecute `:MasonInstallAll` dentro de nvim y listo 😀
-
-## Notas
-
-La notificacion de bienvenida al entrar a nvim son de ejemplo, pueden editarlas en los archivos de configuración, el archivo se encuentra en `lua/base/notify.lua` en el apartado `-- Mensaje de bienvenida`.
 
 ## Características
 
