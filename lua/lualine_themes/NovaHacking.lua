@@ -196,7 +196,18 @@ local config = {
 		lualine_z = { "location" },
 	},
 	tabline = {}, -- No se usa configuración para la tabline
-	extensions = {}, -- No se cargan extensiones adicionales
+	extensions = {
+		{
+			sections = {
+				lualine_a = {
+					function()
+						return "Cheatsheet"
+					end,
+				},
+			},
+			filetypes = { "nvcheatsheet" },
+		},
+	}, -- Extensiones adicionales
 }
 
 -- Finalmente, se inicializa lualine con la configuración arriba definida

@@ -150,9 +150,44 @@ return {
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
+			local lspkind = require("lspkind")
 			require("luasnip.loaders.from_vscode").lazy_load()
 
 			cmp.setup({
+				formatting = {
+					format = lspkind.cmp_format({
+						mode = "symbol_text", -- Puedes usar también 'symbol' o 'text'
+						maxwidth = 50, -- Acorta sugerencias muy largas
+						ellipsis_char = "...", -- Usa ... para cortar
+						symbol_map = {
+							Text = "󰉿",
+							Method = "󰆧",
+							Function = "󰊕",
+							Constructor = "",
+							Field = "󰜢",
+							Variable = "󰀫",
+							Class = "󰠱",
+							Interface = "",
+							Module = "",
+							Property = "󰜢",
+							Unit = "󰑭",
+							Value = "󰎠",
+							Enum = "",
+							Keyword = "󰌋",
+							Snippet = "",
+							Color = "󰏘",
+							File = "󰈙",
+							Reference = "󰈇",
+							Folder = "󰉋",
+							EnumMember = "",
+							Constant = "󰏿",
+							Struct = "󰙅",
+							Event = "",
+							Operator = "󰆕",
+							TypeParameter = "",
+						},
+					}),
+				},
 				completion = {
 					completeopt = "menu,menuone,preview,noselect",
 				},
@@ -231,5 +266,8 @@ return {
 			local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
 			require("dap-python").setup(path)
 		end,
+	},
+	{
+		"onsails/lspkind.nvim",
 	},
 }

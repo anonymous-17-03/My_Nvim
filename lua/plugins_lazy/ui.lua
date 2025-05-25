@@ -208,4 +208,124 @@ return {
 			exclude = {}, -- exclude these filetypes
 		},
 	},
+	{
+		"smartinellimarco/nvcheatsheet.nvim",
+		opts = {
+			-- Default header
+			header = {
+				"                                      ",
+				"                                      ",
+				"                                      ",
+				"█▀▀ █░█ █▀▀ ▄▀█ ▀█▀ █▀ █░█ █▀▀ █▀▀ ▀█▀",
+				"█▄▄ █▀█ ██▄ █▀█ ░█░ ▄█ █▀█ ██▄ ██▄ ░█░",
+				"                                      ",
+				"                                      ",
+				"                                      ",
+			},
+			-- Example keymaps (this doesn't create any)
+			keymaps = {
+				["Oil"] = {
+					{ "Toggle oil (closes without saving)", "<leader>q" },
+					{ "Select entry", "⏎" },
+					{ "Select entry", "l" },
+					{ "Go to parent", "h" },
+					{ "Open vertical split", "⌃v" },
+					{ "Open horizontal split", "⌃x" },
+					{ "Go to current working directory", "." },
+				},
+				["Cmp"] = {
+					{ "Select entry", "⌃f" },
+					{ "Next result - Jump to next snippet placeholder", "⌃n" },
+					{ "Previous result - Jump to previous snippet placeholder", "⌃p" },
+					{ "Scroll up in preview", "⌃u" },
+					{ "Scroll down in preview", "⌃d" },
+					{ "Abort autocompletion", "⌃e" },
+				},
+				["Comment"] = {
+					{ "Comment line toggle", "gcc" },
+					{ "Comment block toggle", "gbc" },
+					{ "Comment visual selection", "gc" },
+					{ "Comment visual selection using block delimiters", "gb" },
+					{ "Comment out text object line wise", "gc<motion>" },
+					{ "Comment out text object block wise", "gb<motion>" },
+					{ "Add comment on the line above", "gcO" },
+					{ "Add comment on the line below", "gco" },
+					{ "Add comment at the end of line", "gcA" },
+				},
+				["Navegación"] = {
+					{ "Ir al principio", "gg" },
+					{ "Ir al final", "G" },
+				},
+			},
+		},
+
+		-- Atajo para el Cheatsheet
+		vim.keymap.set("n", "<leader>a", function()
+			require("nvcheatsheet").toggle()
+		end, { desc = "Abrir cheatsheet" }),
+
+		-- Esquema de colores
+		vim.api.nvim_create_autocmd("ColorScheme", {
+			callback = function()
+				-- Base Tokyonight colors
+				local c = require("tokyonight.colors").setup({ style = "night" })
+
+				-- Header del ASCII (nombre del proyecto u otro título visual)
+				vim.api.nvim_set_hl(0, "NvChAsciiHeader", { fg = c.yellow, bg = "NONE", bold = true })
+
+				-- Fondo de las secciones del cheatsheet
+				vim.api.nvim_set_hl(0, "NvChSection", { bg = "#252535" })
+
+				-- Colores de etiquetas
+				-- Blanco sobre orange fuerte
+				vim.api.nvim_set_hl(0, "NvCheatsheetOrange", {
+					fg = c.bg_dark,
+					bg = c.orange,
+					bold = false,
+				})
+
+				-- Blanco sobre cian
+				vim.api.nvim_set_hl(0, "NvCheatsheetCyan", {
+					fg = c.bg_dark,
+					bg = c.cyan,
+					bold = false,
+				})
+
+				-- Blanco sobre rojo pastel
+				vim.api.nvim_set_hl(0, "NvCheatsheetRed", {
+					fg = c.bg_dark,
+					bg = c.red,
+					bold = false,
+				})
+
+				-- Blanco sobre verde suave
+				vim.api.nvim_set_hl(0, "NvCheatsheetGreen", {
+					fg = c.bg_dark,
+					bg = c.green,
+					bold = false,
+				})
+
+				-- Blanco sobre amarillo suave
+				vim.api.nvim_set_hl(0, "NvCheatsheetYellow", {
+					fg = c.bg_dark,
+					bg = c.yellow,
+					bold = false,
+				})
+
+				-- Blanco sobre púrpura
+				vim.api.nvim_set_hl(0, "NvCheatsheetPurple", {
+					fg = c.bg_dark,
+					bg = c.magenta,
+					bold = false,
+				})
+
+				-- Texto oscuro sobre fondo azul
+				vim.api.nvim_set_hl(0, "NvCheatsheetWhite", {
+					fg = c.bg_dark,
+					bg = c.blue,
+					bold = false,
+				})
+			end,
+		}),
+	},
 }
