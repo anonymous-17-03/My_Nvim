@@ -13,49 +13,6 @@ return {
 		end,
 	},
 	{
-		"koenverburg/peepsight.nvim",
-		event = "BufReadPost",
-		config = function()
-			require("peepsight").setup({
-				-- Go
-				"function_declaration",
-				"method_declaration",
-				"func_literal",
-
-				-- TypeScript / JS
-				"class_declaration",
-				"method_definition",
-				"arrow_function",
-				"function_declaration",
-				"generator_function_declaration",
-
-				-- Python
-				"function_definition",
-				"class_definition",
-				"if_statement",
-				"for_statement",
-				"while_statement",
-
-				-- Lua
-				"function_declaration",
-				"function_definition",
-				"local_function",
-				"do_statement",
-
-				-- C/C++
-				"function_definition",
-				"compound_statement",
-
-				-- Rust
-				"function_item",
-				"impl_item",
-
-				-- Common
-				"block",
-			})
-		end,
-	},
-	{
 		"rmagatti/goto-preview",
 		dependencies = {
 			"rmagatti/logger.nvim",
@@ -274,46 +231,5 @@ return {
 			local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
 			require("dap-python").setup(path)
 		end,
-	},
-	{
-		"stevearc/oil.nvim",
-		cmd = "Oil", -- Carga perezosa al usar el comando :Oil
-		keys = {
-			{ "-", "<cmd>Oil<cr>", desc = "󱥇 Open Oil File Explorer" },
-		},
-		opts = {
-			default_file_explorer = true, -- Reemplaza netrw
-			view_options = {
-				show_hidden = true, -- Muestra archivos ocultos
-			},
-			float = {
-				padding = 2,
-				border = "rounded",
-			},
-		},
-		dependencies = { "nvim-tree/nvim-web-devicons" }, -- Opcional para íconos
-	},
-	{
-		"folke/twilight.nvim",
-		opts = {
-			dimming = {
-				alpha = 0.25, -- amount of dimming
-				-- we try to get the foreground from the highlight groups or fallback color
-				color = { "Normal", "#ffffff" },
-				term_bg = "#000000", -- if guibg=NONE, this will be used to calculate text color
-				inactive = false, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
-			},
-			context = 10, -- amount of lines we will try to show around the current line
-			treesitter = true, -- use treesitter when available for the filetype
-			-- treesitter is used to automatically expand the visible text,
-			-- but you can further control the types of nodes that should always be fully expanded
-			expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
-				"function",
-				"method",
-				"table",
-				"if_statement",
-			},
-			exclude = {}, -- exclude these filetypes
-		},
 	},
 }

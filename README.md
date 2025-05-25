@@ -51,6 +51,7 @@ Este repositorio contiene mi configuración personalizada de Neovim, diseñada p
 │       ├── editor.lua
 │       ├── git.lua
 │       ├── markdown.lua
+│       ├── spectre.lua
 │       ├── terminal.lua
 │       └── ui.lua
 └── README.md
@@ -92,6 +93,7 @@ Estructura:
     - `editor.lua`: Plugins orientados al editor (por ejemplo, mejoras de edición).
     - `git.lua`: Plugins relacionados con Git y control de versiones.
     - `markdown.lua`: Plugins orientados a la edición y vista de archivos Markdown.
+    - `spectre.lua`: Herramienta para sustituir un texto en todo el proyecto
     - `terminal.lua`: Configuración de terminales embebidas dentro de Neovim.
     - `ui.lua`: Plugins que afectan la interfaz de usuario (temas, íconos, notificaciones, etc.).
 - `README.md`: Documento principal que explica cómo usar, configurar e instalar este entorno Neovim personalizado.

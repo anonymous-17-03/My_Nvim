@@ -114,7 +114,6 @@ return {
 				{ "<leader>ca", "<cmd>ca<cr>", desc = " Acciones de Código" },
 
 				{ "<leader>r", group = "󰑕 Renombrar" },
-				{ "<leader>rv", "<cmd>rv<cr>", desc = " Renombrar Variable" },
 
 				{ "<leader>w", group = " Ventana" },
 				{ "<leader>wh", "<cmd>split<cr>", desc = " División Horizontal" },
@@ -167,5 +166,46 @@ return {
 				vim.cmd("hi " .. group .. " guibg=NONE ctermbg=NONE")
 			end
 		end,
+	},
+	{
+		"stevearc/oil.nvim",
+		cmd = "Oil", -- Carga perezosa al usar el comando :Oil
+		keys = {
+			{ "-", "<cmd>Oil<cr>", desc = "󱥇 Open Oil File Explorer" },
+		},
+		opts = {
+			default_file_explorer = true, -- Reemplaza netrw
+			view_options = {
+				show_hidden = true, -- Muestra archivos ocultos
+			},
+			float = {
+				padding = 2,
+				border = "rounded",
+			},
+		},
+		dependencies = { "nvim-tree/nvim-web-devicons" }, -- Opcional para íconos
+	},
+	{
+		"folke/twilight.nvim",
+		opts = {
+			dimming = {
+				alpha = 0.25, -- amount of dimming
+				-- we try to get the foreground from the highlight groups or fallback color
+				color = { "Normal", "#ffffff" },
+				term_bg = "#000000", -- if guibg=NONE, this will be used to calculate text color
+				inactive = false, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
+			},
+			context = 10, -- amount of lines we will try to show around the current line
+			treesitter = true, -- use treesitter when available for the filetype
+			-- treesitter is used to automatically expand the visible text,
+			-- but you can further control the types of nodes that should always be fully expanded
+			expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
+				"function",
+				"method",
+				"table",
+				"if_statement",
+			},
+			exclude = {}, -- exclude these filetypes
+		},
 	},
 }
