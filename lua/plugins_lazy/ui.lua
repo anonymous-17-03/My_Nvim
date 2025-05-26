@@ -277,49 +277,42 @@ return {
 				vim.api.nvim_set_hl(0, "NvChSection", { bg = "#252535" })
 
 				-- Colores de etiquetas
-				-- Blanco sobre orange fuerte
 				vim.api.nvim_set_hl(0, "NvCheatsheetOrange", {
 					fg = c.bg_dark,
 					bg = c.orange,
 					bold = false,
 				})
 
-				-- Blanco sobre cian
 				vim.api.nvim_set_hl(0, "NvCheatsheetCyan", {
 					fg = c.bg_dark,
 					bg = c.cyan,
 					bold = false,
 				})
 
-				-- Blanco sobre rojo pastel
 				vim.api.nvim_set_hl(0, "NvCheatsheetRed", {
 					fg = c.bg_dark,
 					bg = c.red,
 					bold = false,
 				})
 
-				-- Blanco sobre verde suave
 				vim.api.nvim_set_hl(0, "NvCheatsheetGreen", {
 					fg = c.bg_dark,
 					bg = c.green,
 					bold = false,
 				})
 
-				-- Blanco sobre amarillo suave
 				vim.api.nvim_set_hl(0, "NvCheatsheetYellow", {
 					fg = c.bg_dark,
 					bg = c.yellow,
 					bold = false,
 				})
 
-				-- Blanco sobre púrpura
 				vim.api.nvim_set_hl(0, "NvCheatsheetPurple", {
 					fg = c.bg_dark,
 					bg = c.magenta,
 					bold = false,
 				})
 
-				-- Texto oscuro sobre fondo azul
 				vim.api.nvim_set_hl(0, "NvCheatsheetWhite", {
 					fg = c.bg_dark,
 					bg = c.blue,
@@ -327,5 +320,51 @@ return {
 				})
 			end,
 		}),
+	},
+	{
+		"nvzone/minty",
+		cmd = { "Shades", "Huefy" },
+	},
+	{
+		"nvzone/menu",
+		lazy = true,
+
+		-- Atajo para abrir los diferentes menus
+		vim.keymap.set("n", "<leader>md", function()
+			require("menu").open("default", {
+				border = true,
+				mouse = false,
+			})
+		end, { desc = " Abrir menú default" }),
+
+		vim.keymap.set("n", "<leader>ml", function()
+			require("menu").open("lsp", {
+				border = true,
+				mouse = false,
+			})
+		end, { desc = " Abrir menú LSP" }),
+
+		vim.keymap.set("n", "<leader>mg", function()
+			require("menu").open("gitsigns", {
+				border = true,
+				mouse = false,
+			})
+		end, { desc = " Abrir menú Git" }),
+
+		vim.keymap.set("n", "<leader>mn", function()
+			require("menu").open("nvimtree", {
+				border = true,
+				mouse = false,
+			})
+		end, { desc = " Abrir menú nvimtree" }),
+
+		-- Clonar: https://github.com/anonymous-17-03/menu
+		-- Agregar -> novahacking.lua a -> ~/.local/share/nvim/lazy/menu/lua/menus
+		vim.keymap.set("n", "<leader>mh", function()
+			require("menu").open("novahacking", {
+				border = true,
+				mouse = false,
+			})
+		end, { desc = " Abrir menú NovaHacking" }),
 	},
 }

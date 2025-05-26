@@ -22,7 +22,6 @@ local wk = require("which-key")
 -- Mapeos en modo normal
 wk.add({
 	-- Globales
-	{ "<space>m", vim.diagnostic.open_float, desc = " Mostrar error flotante" },
 	{ "<space>q", vim.diagnostic.setloclist, desc = " Mostrar lista de diagnósticos" },
 	{ "[d", vim.diagnostic.goto_prev, desc = " Ir al error anterior" },
 	{ "]d", vim.diagnostic.goto_next, desc = " Ir al siguiente error" },

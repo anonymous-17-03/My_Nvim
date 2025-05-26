@@ -12,6 +12,8 @@ local function close_other_buffers()
 end
 
 wk.add({
+	-- Grupo para agregar configuraciones de menú
+	{ "<leader>m", group = " Menú" },
 
 	-- 🔳 NvimTree
 	{ "<leader>n", vim.cmd.NvimTreeFocus, desc = "󰙅 Enfocar NvimTree" },
