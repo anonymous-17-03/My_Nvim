@@ -262,7 +262,7 @@ return {
 		-- Atajo para el Cheatsheet
 		vim.keymap.set("n", "<leader>a", function()
 			require("nvcheatsheet").toggle()
-		end, { desc = "Abrir cheatsheet" }),
+		end, { desc = "󱓵 Abrir cheatsheet" }),
 
 		-- Esquema de colores
 		vim.api.nvim_create_autocmd("ColorScheme", {
