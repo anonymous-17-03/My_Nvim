@@ -154,7 +154,11 @@ return {
 		},
 		config = function()
 			local wk = require("which-key")
-			wk.setup({})
+			wk.setup({
+				win = {
+					border = "rounded",
+				},
+			})
 
 			wk.add({
 				{ "<leader>c", group = "󰯅 Corrección" },
@@ -302,36 +306,157 @@ return {
 			-- Example keymaps (this doesn't create any)
 			keymaps = {
 				["Oil"] = {
-					{ "Toggle oil (closes without saving)", "<leader>q" },
-					{ "Select entry", "⏎" },
-					{ "Select entry", "l" },
-					{ "Go to parent", "h" },
-					{ "Open vertical split", "⌃v" },
-					{ "Open horizontal split", "⌃x" },
-					{ "Go to current working directory", "." },
+					{ "Ejecutar Oil", "-" },
+					{ "Ejecutar desde comando", ":Oil --float<CR>" },
 				},
-				["Cmp"] = {
-					{ "Select entry", "⌃f" },
-					{ "Next result - Jump to next snippet placeholder", "⌃n" },
-					{ "Previous result - Jump to previous snippet placeholder", "⌃p" },
-					{ "Scroll up in preview", "⌃u" },
-					{ "Scroll down in preview", "⌃d" },
-					{ "Abort autocompletion", "⌃e" },
-				},
+
 				["Comment"] = {
-					{ "Comment line toggle", "gcc" },
-					{ "Comment block toggle", "gbc" },
-					{ "Comment visual selection", "gc" },
-					{ "Comment visual selection using block delimiters", "gb" },
-					{ "Comment out text object line wise", "gc<motion>" },
-					{ "Comment out text object block wise", "gb<motion>" },
-					{ "Add comment on the line above", "gcO" },
-					{ "Add comment on the line below", "gco" },
-					{ "Add comment at the end of line", "gcA" },
+					{ "Comentar línea actual", "gcc" },
+					{ "Comentar líneas seleccionadas", "gc" },
 				},
+
 				["Navegación"] = {
 					{ "Ir al principio", "gg" },
 					{ "Ir al final", "G" },
+				},
+
+				["Menú"] = {
+					{ "Abrir Opciones de Menú", "<leader>m" },
+					{ "Abrir Menú Default", "<leader>md" },
+					{ "Abrir Menú LSP", "<leader>ml" },
+					{ "Abrir Menú Git", "<leader>mg" },
+					{ "Abrir Menú nvimtree", "<leader>mn" },
+					{ "Abrir Menú NovaHacking", "<leader>mh" },
+				},
+
+				["NvimTree"] = {
+					{ "Enfocar NvimTree", "<leader>n" },
+					{ "Alternar NvimTree", "<C-n>" },
+				},
+
+				["Buffers"] = {
+					{ "Primer buffer", "<leader>1" },
+					{ "Último buffer", "<leader>0" },
+					{ "Siguiente buffer", "<Tab>" },
+					{ "Buffer anterior", "<S-Tab>" },
+					{ "Siguiente Buffer", "<leader>bn" },
+					{ "Buffer Anterior", "<leader>bp" },
+					{ "Cerrar buffer actual", "<leader>bd" },
+					{ "Cerrar otros buffers", "<leader>bo" },
+				},
+
+				["Debug"] = {
+					{ "Abrir menú Debug", "<leader>d" },
+					{ "Ejecutar DapSidebar", "<leader>ds" },
+					{ "Alternar breakpoint", "<leader>db" },
+					{ "Continuar", "<leader>dc" },
+				},
+
+				["Funciones comunes"] = {
+					{ "Salir de todos los buffers", ":qa<CR>" },
+					{ "Abrir archivo", ":e <archivo>" },
+					{ "Abrir archivo nuevo", ":new<CR>" },
+					{ "División vertical", ":vsplit<CR>" },
+					{ "División horizontal", ":split<CR>" },
+					{ "Moverse entre divisiones", "<C-w>h / j / k / l" },
+					{ "Cerrar ventana", ":close<CR>" },
+					{ "Limpiar pantalla", ":nohlsearch<CR>" },
+					{ "Buscar texto", ":/<texto>" },
+					{ "Buscar siguiente coincidencia", "n" },
+					{ "Buscar anterior coincidencia", "N" },
+					{ "Reemplazo en línea", ":%s/palabra/nueva/g<CR>" },
+					{ "Ver lista de buffers", ":ls<CR>" },
+					{ "Cambiar a buffer", ":b <número>" },
+					{ "Ver historial de comandos", "q:" },
+					{ "Ver historial de búsqueda", "q/" },
+				},
+
+				["Otros"] = {
+					{ "Eliminar resaltado de búsqueda", "<leader>e" },
+					{ "Buffer Local Keymaps", "<leader>?" },
+					{ "Opciones de Corrección", "<leader>c" },
+					{ "Acciones de Código", "<leader>ca" },
+					{ "Practicar con el teclado", ":Typr<CR>" },
+					{ "Estadísticas del teclado", ":TyprStats<CR>" },
+				},
+
+				["Guardado"] = {
+					{ "Guardar archivo", "<C-s>" },
+					{ "Guardar y salir", "<S-s>" },
+					{ "Guardar todos los archivos", "<A-s>" },
+					{ "Guardar archivo", ":w<CR>" },
+					{ "Guardar todo (buffers)", ":wa<CR>" },
+					{ "Cerrar archivo", ":q<CR>" },
+					{ "Cerrar sin guardar", ":q!<CR>" },
+					{ "Guardar y salir", ":wq<CR>" },
+					{ "Guardar todo y salir", ":wqa<CR>" },
+				},
+
+				["Cmp"] = {
+					{ "Seleccionar sugerencia anterior", "<C-K>" },
+					{ "Seleccionar sugerencia siguiente", "<C-j>" },
+					{ "Scroll arriba en docs", "<C-b>" },
+					{ "Scroll abajo en docs", "<C-f>" },
+					{ "Mostrar sugerencias", "<C-Space>" },
+					{ "Cerrar sugerencias", "<C-e>" },
+					{ "Confirmar selección con Enter", "<CR>" },
+					{ "Confirmar selección", "<C-y>" },
+				},
+
+				["Gitsigns"] = {
+					{ "Abrir menú Hunk", "<leader>h" },
+					{ "Stage hunk", "<leader>hs" },
+					{ "Undo stage hunk", "<leader>hu" },
+					{ "Reset hunk", "<leader>hr" },
+					{ "Preview hunk", "<leader>hp" },
+					{ "Blame line", "<leader>hb" },
+				},
+
+				["Telescope"] = {
+					{ "Abrir menú Telescope", "<leader>f" },
+					{ "Buscar Archivo", "<leader>ff" },
+					{ "Buscar Texto", "<leader>fg" },
+					{ "Ver Buffers", "<leader>fb" },
+					{ "Buscar Ayuda", "<leader>fh" },
+					{ "Archivos Recientes", "<leader>fr" },
+					{ "Nuevo Archivo", "<leader>fn" },
+				},
+
+				["Goto Preview"] = {
+					{ "Abrir menú Goto Preview", "<leader>g" },
+					{ "Preview Definition", "<leader>gd" },
+					{ "Preview Declaration", "<leader>gD" },
+					{ "Preview Implementation", "<leader>gi" },
+					{ "Preview References", "<leader>gr" },
+					{ "Preview Type Definition", "<leader>gt" },
+					{ "Close all preview windows", "<leader>gc" },
+				},
+
+				["LazyGit"] = {
+					{ "Abrir LazyGit", "<leader>hg" },
+				},
+
+				["Spectre"] = {
+					{ "Abrir Spectre", "<leader>s" },
+					{ "Opciones para Renombrar", "<leader>r" },
+					{ "Buscar palabra bajo el cursor", "<leader>rw" },
+					{ "Buscar en archivo actual", "<leader>ra" },
+					{ "Mostrar menú de opciones", "<leader>o" },
+					{ "Mostrar atajos de teclados de Spectre", "?" },
+				},
+
+				["Ventanas"] = {
+					{ "Opciones para ventanas", "<leader>w" },
+					{ "División Horizontal", "<leader>wh" },
+					{ "División Vertical", "<leader>wv" },
+					{ "Cerrar ventana actual", "<leader>wd" },
+				},
+
+				["Terminales"] = {
+					{ "Opciones para Terminales", "<leader>w" },
+					{ "Terminal Flotante", "<leader>wf" },
+					{ "Terminal Horizontal", "<leader>wh" },
+					{ "Terminal Vertical", "<leader>wv" },
 				},
 			},
 		},

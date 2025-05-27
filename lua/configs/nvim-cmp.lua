@@ -1,29 +1,105 @@
-local cmp = require("cmp") -- Motor de autocompletado
-local luasnip = require("luasnip") -- Motor de snippets
-require("luasnip.loaders.from_vscode").lazy_load() -- Carga snippets estilo VSCode
+local cmp = require("cmp")
+local luasnip = require("luasnip")
+local lspkind = require("lspkind")
+require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup({
-	completion = {
-		completeopt = "menu,menuone,preview,noselect", -- Opciones de menú para autocompletado
+	formatting = {
+		format = lspkind.cmp_format({
+			mode = "symbol_text", -- Puedes usar también 'symbol' o 'text'
+			maxwidth = 50, -- Acorta sugerencias muy largas
+			ellipsis_char = "...", -- Usa ... para cortar
+			symbol_map = {
+				Text = "󰉿",
+				Method = "󰆧",
+				Function = "󰊕",
+				Constructor = "",
+				Field = "󰜢",
+				Variable = "󰀫",
+				Class = "󰠱",
+				Interface = "",
+				Module = "",
+				Property = "󰜢",
+				Unit = "󰑭",
+				Value = "󰎠",
+				Enum = "",
+				Keyword = "󰌋",
+				Snippet = "",
+				Color = "󰏘",
+				File = "󰈙",
+				Reference = "󰈇",
+				Folder = "󰉋",
+				EnumMember = "",
+				Constant = "󰏿",
+				Struct = "󰙅",
+				Event = "",
+				Operator = "󰆕",
+				TypeParameter = "",
+				-- NUEVOS
+				KeywordConditional = "󰘦",
+				KeywordReturn = "󰌑",
+				KeywordOperator = "󰌋",
+				Comment = "󰅺",
+				Boolean = "",
+				Array = "",
+				Null = "",
+				Object = "",
+				String = "",
+				Package = "󰏖",
+				Macro = "",
+				Namespace = "",
+				Number = "󰎠",
+			},
+		}),
 	},
-	snippet = {
-		-- Define cómo expandir snippets con luasnip
+	completion = {
+		completeopt = "menu,menuone,preview,noselect",
+	},
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
+	},
+	snippet = { -- configure how nvim-mp interacts with snippet engine
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
 		end,
 	},
 	mapping = cmp.mapping.preset.insert({
-		["<C-K>"] = cmp.mapping.select_prev_item(), -- Selecciona sugerencia anterior
-		["<C-j>"] = cmp.mapping.select_next_item(), -- Selecciona siguiente sugerencia
-		["<C-b>"] = cmp.mapping.scroll_docs(-4), -- Scroll arriba en docs
-		["<C-f>"] = cmp.mapping.scroll_docs(4), -- Scroll abajo en docs
-		["<C-Space>"] = cmp.mapping.complete(), -- Mostrar sugerencias manualmente
-		["<C-e>"] = cmp.mapping.abort(), -- Cierra el menú de sugerencias
-		["<CR>"] = cmp.mapping.confirm({ select = false }), -- Confirmar selección con Enter
+		["<C-K>"] = cmp.mapping.select_prev_item(), --previous suggestion
+		["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
+		["<C-b>"] = cmp.mapping.scroll_docs(-4),
+		["<C-f>"] = cmp.mapping.scroll_docs(4),
+		["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
+		["<C-e>"] = cmp.mapping.abort(), -- close completion window
+		["<C-y>"] = cmp.mapping.confirm({ select = false }),
 	}),
 	sources = cmp.config.sources({
-		{ name = "luasnip" }, -- Fuente: snippets
-		{ name = "buffer" }, -- Fuente: contenido del buffer
-		{ name = "path" }, -- Fuente: rutas de sistema de archivos
+		{ name = "nvim_lsp", priority = 1000 },
+		{ name = "luasnip", priority = 750 },
+		{ name = "treesitter", priority = 700 },
+		{ name = "buffer", priority = 500 },
+		{ name = "path", priority = 250 },
+		{ name = "calc", priority = 100 },
 	}),
 })
+-- Completado para comandos `:`
+cmp.setup.cmdline(":", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{ name = "cmdline" },
+	}),
+})
+
+-- Completado para búsqueda `/` y `?`
+cmp.setup.cmdline({ "/", "?" }, {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = "buffer" },
+	},
+})
+
+-- Integración con autopairs para cerrar paréntesis al confirmar
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
