@@ -166,8 +166,6 @@ A continuación, se muestran algunos ejemplos de cómo se ve la configuración f
 
 ![Imagen 14](img/img14.png)
 
-![Imagen 15](img/img15.png)
-
 ## Créditos
 
 [FStanDev](https://youtu.be/RYAfhkw_1QQ?si=A1tYsU0XbrQSYIlG) por la inspiración inicial.
