@@ -27,6 +27,7 @@ wk.add({
 
 	-- 🐞 Debug (DAP)
 	{ "<leader>d", group = "Debug" },
+	{ "<leader>ds", vim.cmd.DapSidebar, desc = "$ Ejecutar DapSidebar" },
 	{ "<leader>db", vim.cmd.DapToggleBreakpoint, desc = " Alternar breakpoint" },
 	{ "<leader>dc", vim.cmd.DapContinue, desc = " Continuar" },
 
@@ -36,9 +37,6 @@ wk.add({
 	{ "<leader>bp", "<cmd>bp<cr>", desc = " Buffer Anterior" },
 	{ "<leader>bd", "<cmd>bdelete<cr>", desc = " Cerrar buffer actual" },
 	{ "<leader>bo", close_other_buffers, desc = "󰧮 Cerrar otros buffers" },
-
-	-- 🪟 Ventanas
-	{ "<leader>wd", vim.cmd.close, desc = " Cerrar ventana actual" },
 
 	-- ✨ Otros
 	{ "<leader>e", "<cmd>noh<CR>", desc = "󰚰 Eliminar resaltado de búsqueda" },

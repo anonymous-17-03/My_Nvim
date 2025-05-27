@@ -1,4 +1,9 @@
 return {
+	-- Muestra indicadores en el margen lateral para cambios de Git (add, delete, change).
+	-- Permite ver el estado de línea por línea directamente en el buffer.
+	-- Soporta operaciones como staging, reset y preview de cambios desde Neovim.
+	-- Carga perezosa inteligente al detectar que el buffer pertenece a un repositorio Git.
+	-- Se configura usando `configs.others.gitsigns` para mantener modularidad.
 	{
 		"lewis6991/gitsigns.nvim",
 		ft = { "gitcommit", "diff" },
@@ -26,6 +31,12 @@ return {
 			require("gitsigns").setup(opts)
 		end,
 	},
+
+	-- Integra la interfaz TUI de LazyGit directamente dentro de Neovim.
+	-- Permite hacer staging, commits, branch, merge y más con una UI fluida.
+	-- Usa `Telescope` para acceder a funciones como filtros y archivos actuales.
+	-- Configura comandos personalizados (`LazyGit*`) y un atajo con `<leader>hg`.
+	-- Carga sin demora (lazy = false) para acceso inmediato.
 	{
 		"kdheepak/lazygit.nvim",
 		lazy = false,

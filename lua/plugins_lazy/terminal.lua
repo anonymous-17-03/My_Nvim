@@ -1,5 +1,9 @@
 return {
-	-- Terminal: Ej. toggleterm
+	-- Plugin que permite abrir terminales flotantes, verticales u horizontales.
+	-- Se puede mapear con atajos para mayor rapidez y eficiencia.
+	-- Mantiene configuración persistente como tamaño o shell por defecto.
+	-- Admite shells personalizados como zsh y bordes estilizados.
+	-- Muy útil para correr comandos, REPLs o herramientas como git, htop, etc.
 	{
 		"akinsho/toggleterm.nvim",
 		version = "*",
