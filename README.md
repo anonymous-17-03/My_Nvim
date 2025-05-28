@@ -11,7 +11,7 @@ Este repositorio contiene mi configuración personalizada de Neovim, diseñada p
 ├── img
 │   ├── img1.png
 │   ├── img...
-│   ├── img14.png
+│   ├── img15.png
 │   └── logo.webp
 ├── init.lua
 ├── lua
@@ -53,7 +53,7 @@ Este repositorio contiene mi configuración personalizada de Neovim, diseñada p
 Estructura:
 
 - `img/`: Carpeta que contiene recursos gráficos utilizados para el README.
-  - `img1.png` a `img10.png`: Imágenes varias para visualización de la configuración final.
+  - `img1.png` a `img15.png`: Imágenes varias para visualización de la configuración final.
   - `logo.webp`: Logo de Nvim (uso decorativo).
 - `init.lua`: Archivo principal que inicializa toda la configuración de Neovim. Carga módulos de la carpeta `lua/`.
 - `lua/`: Carpeta principal que contiene toda la configuración modular.
