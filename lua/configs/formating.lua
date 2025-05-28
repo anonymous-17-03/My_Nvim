@@ -1,4 +1,3 @@
--- formating.lua
 -- Configuración de herramientas de formateo de código para múltiples lenguajes.
 -- Fuente de referencia: https://www.josean.com/posts/neovim-linting-and-formatting
 
@@ -16,7 +15,7 @@ return {
 		json = { "prettier" },
 		yaml = { "prettier" },
 		graphql = { "prettier" },
-		markdown = { "prettier" },
+		php = { "php-cs-fixer" },
 
 		-- Lua
 		lua = { "stylua" },
@@ -26,12 +25,19 @@ return {
 
 		-- Rust
 		rust = { "rustfmt" },
+
+		-- Bash
+		bash = { "shfmt" },
+		sh = { "shfmt" },
+
+		-- Dockerfile
+		dockerfile = { "prettier" },
 	},
 
 	-- Configuración para el autoformateo al guardar archivos
 	format_on_save = {
 		lsp_fallback = true, -- Si el LSP no tiene formateo, usar el formateador externo
 		async = false, -- Formateo síncrono (espera a que termine antes de continuar)
-		timeout_ms = 500, -- Tiempo máximo para el formateo
+		timeout_ms = 1000, -- Tiempo máximo para el formateo
 	},
 }

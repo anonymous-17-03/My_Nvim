@@ -102,3 +102,36 @@ local severity = { "error", "warn", "info", "info" }
 vim.lsp.handlers["window/showMessage"] = function(_, method, params, _)
 	notify(method.message, severity[params.type])
 end
+
+-- Mostrar notificación al entrar a un buffer con info LSP después de 2 segundos
+local function show_lsp_info()
+	local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+	if #clients == 0 then
+		notify("   No hay un LSP activo!", "warn", {
+			title = "LSP Info",
+			timeout = 3000,
+		})
+
+		return
+	end
+
+	local lines = {}
+	for _, client in ipairs(clients) do
+		local name = client.name
+		local id = client.id
+		local root_dir = client.config.root_dir or "Desconocido"
+
+		table.insert(lines, string.format("🚀  Cliente:    %s  󰁍  ID: %d", name, id))
+		table.insert(lines, string.format("📁  Root Dir:   %s", root_dir))
+		table.insert(lines, "💻  Comando:    " .. table.concat(client.config.cmd or {}, " "))
+		table.insert(lines, "🎯  Encoding:   " .. (client.offset_encoding or "desconocido"))
+	end
+
+	notify(table.concat(lines, "\n"), "info", {
+		title = "LSP Info",
+		timeout = 5000,
+	})
+end
+
+-- Mapeo de teclado para <leader>ln (LSP Notification)
+vim.keymap.set("n", "<leader>ln", show_lsp_info, { desc = " Mostrar info del LSP actual" })

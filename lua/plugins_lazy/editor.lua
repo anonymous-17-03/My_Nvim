@@ -246,21 +246,6 @@ return {
 		end,
 	},
 
-	-- Cliente LSP especializado para Rust basado en `rust-analyzer`.
-	-- Reemplaza configuraciones manuales y ofrece integración avanzada con herramientas del ecosistema Rust.
-	-- Provee asistencia contextual, navegación entre archivos, documentación y más.
-	-- Compatible con `nvim-lspconfig`, lo que permite extender la configuración global del LSP.
-	-- Se recomienda usar versión ^4 (estable).
-	{
-		"mrcjkb/rustaceanvim",
-		version = "^4", -- Recommended
-		lazy = false, -- This plugin is already lazy
-		ft = "rust",
-		dependencies = {
-			"neovim/nvim-lspconfig",
-		},
-	},
-
 	-- Proporciona un sistema de debugging (depuración) interactivo en Neovim.
 	-- Compatible con múltiples lenguajes mediante adaptadores DAP (como lldb, debugpy, etc).
 	-- Permite establecer breakpoints, inspeccionar variables, ejecutar paso a paso.

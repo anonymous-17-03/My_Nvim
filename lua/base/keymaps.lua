@@ -15,6 +15,9 @@ wk.add({
 	-- Grupo para agregar configuraciones de menú
 	{ "<leader>m", group = " Menú" },
 
+	-- Grupo para Git y Hunk
+	{ "<leader>h", group = "󰊢 Hunk" },
+
 	-- 🔳 NvimTree
 	{ "<leader>n", vim.cmd.NvimTreeFocus, desc = "󰙅 Enfocar NvimTree" },
 	{ "<C-n>", vim.cmd.NvimTreeToggle, desc = " Alternar NvimTree" },

@@ -1,6 +1,14 @@
 local lspconfig = require("lspconfig") -- Importa configuración para servidores LSP
 
--- Ejecutar al adjuntar LSP a un buffer
+-- Bordes redondeados para todas las ventanas flotantes de LSP
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
+	opts = opts or {}
+	opts.border = opts.border or "rounded"
+	return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
+
+-- ejecutar al adjuntar LSP a un buffer
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(ev)
@@ -8,13 +16,107 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+vim.diagnostic.config({
+	virtual_text = false, -- Desactiva el texto virtual al lado del código
+	virtual_lines = false, -- Desactiva líneas virtuales (si lo usas)
+	signs = true, -- Puedes dejar los signos (en el margen)
+	underline = true, -- Subrayado del código con errores
+	update_in_insert = false, -- No actualizar diagnósticos en modo Insert
+	severity_sort = true, -- Ordenar severidad (Error > Warn > Info > Hint)
+})
+
+vim.o.updatetime = 500
+
+-- muestra diagnósticos flotantes al detener el cursor
+vim.api.nvim_create_autocmd("CursorHold", {
+	pattern = "*",
+	callback = function()
+		vim.diagnostic.open_float(nil, {
+			focusable = false,
+			close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+			border = "rounded",
+			source = "always",
+			prefix = "",
+			scope = "line",
+		})
+	end,
+})
+
 -- Configuración de servidores LSP
 lspconfig.pyright.setup({}) -- Python
 lspconfig.lua_ls.setup({}) -- Lua
--- lspconfig.tsserver.setup({}) -> Deprecated
 lspconfig.ts_ls.setup({}) -- TypeScript
 lspconfig.svelte.setup({}) -- Svelte
 lspconfig.bashls.setup({}) -- Bash
+lspconfig.clangd.setup({}) -- C y C++
+lspconfig.astro.setup({}) -- Astro
+
+local util = require("lspconfig.util")
+lspconfig.rust_analyzer.setup({
+	cmd = { "rust-analyzer" },
+	filetypes = { "rust" },
+	root_dir = function(fname)
+		-- 1. Buscar carpeta con Cargo.toml
+		local cargo_crate_dir = util.root_pattern("Cargo.toml")(fname)
+
+		-- 2. Ejecutar `cargo metadata` para obtener workspace_root
+		local cargo_workspace_dir = nil
+		if cargo_crate_dir then
+			local manifest_path = util.path.join(cargo_crate_dir, "Cargo.toml")
+			local cmd = { "cargo", "metadata", "--no-deps", "--format-version", "1", "--manifest-path", manifest_path }
+
+			-- Ejecutar comando de forma segura
+			local cargo_metadata = vim.fn.system(cmd)
+			if vim.v.shell_error == 0 then
+				local ok, decoded = pcall(vim.fn.json_decode, vim.fn.trim(cargo_metadata))
+				if ok and decoded and decoded["workspace_root"] then
+					cargo_workspace_dir = decoded["workspace_root"]
+				end
+			end
+		end
+
+		-- 3. Retornar raíz válida o buscar alternativas
+		return cargo_workspace_dir
+			or cargo_crate_dir
+			or util.root_pattern("rust-project.json")(fname)
+			or util.find_git_ancestor(fname)
+			or vim.fn.getcwd() -- último recurso
+	end,
+
+	settings = {
+		["rust-analyzer"] = {
+			cargo = {
+				allFeatures = true, -- si usas features opcionales
+			},
+		},
+	},
+}) -- Rust
+
+--Enable (broadcasting) snippet capability for completion
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+lspconfig.html.setup({
+	capabilities = capabilities,
+}) -- html
+
+local util = require("lspconfig.util")
+lspconfig.intelephense.setup({
+	cmd = { "intelephense", "--stdio" },
+	filetypes = { "php" },
+	root_dir = function(pattern)
+		local cwd = vim.loop.cwd()
+		local root = util.root_pattern("composer.json", ".git")(pattern)
+
+		-- Si no se encuentra root, usar el directorio actual
+		if not root then
+			root = cwd
+		end
+
+		-- Preferir cwd si root está dentro
+		return util.path.is_descendant(cwd, root) and cwd or root
+	end,
+}) -- php
 
 -- Registro en which-key
 local wk = require("which-key")
@@ -61,5 +163,14 @@ wk.add({
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end,
 		desc = "{.} Listar carpetas del espacio de trabajo",
+	},
+
+	-- Ver información del LSP en ventana flotante con bordes
+	{
+		"<leader>li",
+		function()
+			vim.cmd("LspInfo")
+		end,
+		desc = "󰒓 Ver información de LSP",
 	},
 }, { mode = "n" }) -- modo normal

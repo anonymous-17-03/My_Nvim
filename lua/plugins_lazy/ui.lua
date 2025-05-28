@@ -199,8 +199,9 @@ return {
 		lazy = false,
 		priority = 1000,
 		config = function()
+			-- Opciones
 			require("tokyonight").setup({
-				style = "night",
+				style = "night", -- themes: night, storm, day, moon.
 				transparent = true,
 				terminal_colors = true,
 				styles = {
@@ -226,6 +227,7 @@ return {
 			}
 
 			for _, group in ipairs(highlight_groups) do
+				-- Para fondo solido usar -> guibg=#1f2335 o el color que desee.
 				vim.cmd("hi " .. group .. " guibg=NONE ctermbg=NONE")
 			end
 		end,
@@ -358,7 +360,7 @@ return {
 					{ "Abrir archivo nuevo", ":new<CR>" },
 					{ "División vertical", ":vsplit<CR>" },
 					{ "División horizontal", ":split<CR>" },
-					{ "Moverse entre divisiones", "<C-w>h / j / k / l" },
+					{ "Moverse entre divisiones", "<C-w> h,j,k,l" },
 					{ "Cerrar ventana", ":close<CR>" },
 					{ "Limpiar pantalla", ":nohlsearch<CR>" },
 					{ "Buscar texto", ":/<texto>" },
@@ -457,6 +459,21 @@ return {
 					{ "Terminal Flotante", "<leader>wf" },
 					{ "Terminal Horizontal", "<leader>wh" },
 					{ "Terminal Vertical", "<leader>wv" },
+				},
+
+				["LSP"] = {
+
+					{ "Opciones para LSP", "<leader>l" },
+					{ "Acciones de Código", "<leader>la" },
+					{ "Ver Tipo de Definición", "<leader>lD" },
+					{ "Formatear Buffer", "<leader>lf" },
+					{ "Mostrar Documentación", "<leader>lh" },
+					{ "Ver Información del LSP", "<leader>li" },
+					{ "Mostrar Info del LSP Actual", "<leader>ln" },
+					{ "Renombrar Símbolo", "<leader>lr" },
+					{ "Ayuda de Firma", "<leader>ls" },
+					{ "Ir a", "<leader>lg" },
+					{ "Workspace", "<leader>lw" },
 				},
 			},
 		},

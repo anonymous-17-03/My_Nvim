@@ -79,4 +79,5 @@ wk.add({
 	{ "<leader>fh", builtin.help_tags, desc = "󰘥 Buscar Ayuda" },
 	{ "<leader>fr", builtin.oldfiles, desc = "󰋚 Archivos Recientes" },
 	{ "<leader>fn", "<cmd>enew<cr>", desc = " Nuevo Archivo" },
+	{ "<leader>fc", builtin.command_history, desc = " Historial de Comandos" },
 }, { mode = "n" })

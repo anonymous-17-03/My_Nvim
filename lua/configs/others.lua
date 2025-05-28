@@ -64,7 +64,6 @@ end
 local wk = require("which-key")
 local function gitsigns_attach_mappings(bufnr)
 	wk.add({
-		{ "<leader>h", group = "󰊢 Hunk" },
 		{ "<leader>hs", ":Gitsigns stage_hunk<CR>", desc = " Stage hunk" },
 		{ "<leader>hu", ":Gitsigns undo_stage_hunk<CR>", desc = "󰑐 Undo stage hunk" },
 		{ "<leader>hr", ":Gitsigns reset_hunk<CR>", desc = " Reset hunk" },
