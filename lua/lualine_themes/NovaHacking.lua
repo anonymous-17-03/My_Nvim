@@ -5,6 +5,9 @@ vim.cmd([[
   highlight LualineBuffers guifg=#808080 guibg=#202328
 ]])
 
+-- Esto indica a Neovim que nunca muestre la tabline nativa, incluso si otros plugins la intentan usar.
+vim.o.showtabline = 0
+
 -- Cargamos el módulo de lualine
 local lualine = require("lualine")
 

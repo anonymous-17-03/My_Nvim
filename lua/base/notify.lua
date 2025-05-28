@@ -120,11 +120,15 @@ local function show_lsp_info()
 		local name = client.name
 		local id = client.id
 		local root_dir = client.config.root_dir or "Desconocido"
+		local cmd = table.concat(client.config.cmd or {}, " ")
+		local encoding = client.offset_encoding or "Desconocido"
+		local attached_buffers = vim.tbl_count(client.attached_buffers or {})
 
-		table.insert(lines, string.format("🚀  Cliente:    %s  󰁍  ID: %d", name, id))
-		table.insert(lines, string.format("📁  Root Dir:   %s", root_dir))
-		table.insert(lines, "💻  Comando:    " .. table.concat(client.config.cmd or {}, " "))
-		table.insert(lines, "🎯  Encoding:   " .. (client.offset_encoding or "desconocido"))
+		table.insert(lines, string.format("🚀  Cliente:       %s  󰁍  ID: %d", name, id))
+		table.insert(lines, string.format("📁  Root Dir:      %s", root_dir))
+		table.insert(lines, string.format("💻  Comando:       %s", cmd))
+		table.insert(lines, string.format("🎯  Encoding:      %s", encoding))
+		table.insert(lines, string.format("📦  B. Attached:   %d", attached_buffers))
 	end
 
 	notify(table.concat(lines, "\n"), "info", {
