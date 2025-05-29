@@ -14,6 +14,31 @@ return {
 		},
 	},
 
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
+		opts = {
+			-- tu configuración va aquí
+			-- o déjalo vacío para usar la configuración por defecto
+			-- consulta la sección de configuración en la documentación
+
+			bigfile = { enabled = true }, -- Maneja archivos grandes eficientemente
+			dashboard = { enabled = false }, -- Muestra un panel de inicio declarativo y estético
+			explorer = { enabled = false }, -- Explorador de archivos (similar a un picker disfrazado)
+			indent = { enabled = true }, -- Guías de indentación y detección de bloques
+			input = { enabled = false }, -- Mejora la interfaz para vim.ui.input
+			picker = { enabled = true }, -- Selector de elementos (estilo fzf/telescope)
+			notifier = { enabled = false }, -- Notificaciones visuales atractivas con vim.notify
+			quickfile = { enabled = true }, -- Abre archivos rápidamente antes de cargar plugins
+			scope = { enabled = true }, -- Detecta bloques y permite moverse entre ellos (treesitter/indent)
+			scroll = { enabled = false }, -- Desplazamiento suave al navegar por archivos
+			statuscolumn = { enabled = true }, -- Columna de estado bonita (para signos, líneas, etc.)
+			words = { enabled = true }, -- Muestra referencias LSP y permite navegar entre ellas fácilmente
+		},
+	},
+
 	-- Incline.nvim muestra una pequeña barra flotante encima de cada ventana con el nombre del archivo.
 	-- Personalizable con íconos de archivo gracias a `nvim-web-devicons` y estilos con colores.
 	-- Indica visualmente en qué ventana estás trabajando.

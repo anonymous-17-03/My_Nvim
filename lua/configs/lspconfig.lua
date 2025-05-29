@@ -51,48 +51,9 @@ lspconfig.bashls.setup({}) -- Bash
 lspconfig.clangd.setup({}) -- C y C++
 lspconfig.astro.setup({}) -- Astro
 
-local util = require("lspconfig.util")
-lspconfig.rust_analyzer.setup({
-	cmd = { "rust-analyzer" },
-	filetypes = { "rust" },
-	root_dir = function(fname)
-		-- 1. Buscar carpeta con Cargo.toml
-		local cargo_crate_dir = util.root_pattern("Cargo.toml")(fname)
+lspconfig.rust_analyzer.setup({})
 
-		-- 2. Ejecutar `cargo metadata` para obtener workspace_root
-		local cargo_workspace_dir = nil
-		if cargo_crate_dir then
-			local manifest_path = util.path.join(cargo_crate_dir, "Cargo.toml")
-			local cmd = { "cargo", "metadata", "--no-deps", "--format-version", "1", "--manifest-path", manifest_path }
-
-			-- Ejecutar comando de forma segura
-			local cargo_metadata = vim.fn.system(cmd)
-			if vim.v.shell_error == 0 then
-				local ok, decoded = pcall(vim.fn.json_decode, vim.fn.trim(cargo_metadata))
-				if ok and decoded and decoded["workspace_root"] then
-					cargo_workspace_dir = decoded["workspace_root"]
-				end
-			end
-		end
-
-		-- 3. Retornar raíz válida o buscar alternativas
-		return cargo_workspace_dir
-			or cargo_crate_dir
-			or util.root_pattern("rust-project.json")(fname)
-			or util.find_git_ancestor(fname)
-			or vim.fn.getcwd() -- último recurso
-	end,
-
-	settings = {
-		["rust-analyzer"] = {
-			cargo = {
-				allFeatures = true, -- si usas features opcionales
-			},
-		},
-	},
-}) -- Rust
-
---Enable (broadcasting) snippet capability for completion
+-- Enable (broadcasting) snippet capability for completion
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
