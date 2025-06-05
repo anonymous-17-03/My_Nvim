@@ -32,6 +32,9 @@ return {
 
 		-- Dockerfile
 		dockerfile = { "prettier" },
+
+		-- GO
+		go = { "gofumpt", "goimports" },
 	},
 
 	-- Configuración para el autoformateo al guardar archivos
