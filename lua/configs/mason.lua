@@ -29,9 +29,9 @@ return {
 		"html-lsp", -- LSP para HTML
 		"intelephense", -- LSP para PHP
 		"php-cs-fixer", -- Formateador para PHP
-		"gopls", -- LSP para GO
-		"gofumpt", -- Formateador para GO
-		"goimports", -- Formateador para GO
+		"gopls", -- LSP para Go
+		"gofumpt", -- Formateador para Go
+		"goimports", -- Formateador para Go
 	},
 	max_concurrent_installers = 7, -- Límite de instalaciones simultáneas
 }

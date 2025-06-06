@@ -33,7 +33,7 @@ return {
 		-- Dockerfile
 		dockerfile = { "prettier" },
 
-		-- GO
+		-- Go
 		go = { "gofumpt", "goimports" },
 	},
 

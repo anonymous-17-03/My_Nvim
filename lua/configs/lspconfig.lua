@@ -50,7 +50,7 @@ lspconfig.svelte.setup({}) -- Svelte
 lspconfig.bashls.setup({}) -- Bash
 lspconfig.clangd.setup({}) -- C y C++
 lspconfig.astro.setup({}) -- Astro
-lspconfig.gopls.setup({}) -- GO
+lspconfig.gopls.setup({}) -- Go
 
 lspconfig.rust_analyzer.setup({})
 

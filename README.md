@@ -125,6 +125,20 @@ Y listo 😀, al entrar de nuevo a `nvim` vera:
 
 ![Imagen 1](img/img1.png)
 
+## Lenguajes añadidos previamente
+
+- Python
+- Lua
+- TypeScript
+- Astro
+- Svelte
+- Bash
+- C y C++
+- Go
+- Rust
+- HTML
+- PHP
+
 ## 🧠 Tecla Líder
 
 La tecla líder (leader key) está configurada como el espacio (`<Space>`). Esto significa que puedes utilizar combinaciones como `<leader>ff` para buscar archivos con Telescope o `<leader>l` para acceder a comandos relacionados con LSP, si se presiona solo el espacio `which-key` mostrará las posibles combinaciones de tecla y que hacen.
@@ -233,12 +247,19 @@ return {
 		"html-lsp",                  -- LSP para HTML
 		"intelephense",              -- LSP para PHP
 		"php-cs-fixer",              -- Formateador para PHP
+		"gopls", -- LSP para GO
+		"gofumpt", -- Formateador para GO
+		"goimports", -- Formateador para GO
 	},
 	max_concurrent_installers = 7, -- Máximo de herramientas instaladas simultáneamente
 }
 ```
 
-> **Nota**: Los servidores se instalan con el comando `:MasonInstall shfmt` o `MasonInstallAll`  Para instalar los paquetes en la lista `ensure_installed`.
+> **Nota**: Los servidores se instalan con el comando `:MasonInstall shfmt` o `MasonInstallAll`  Para instalar los paquetes en la lista `ensure_installed`, luego puede agregarlos y configurarlos en `lua/configs/lspconfig.lua`, ejemplo:
+
+```lua
+lspconfig.gopls.setup({}) -- GO
+```
 
 #### Mason
 
@@ -282,6 +303,9 @@ return {
 
 		-- Docker
 		dockerfile = { "prettier" },
+
+        -- GO
+		go = { "gofumpt", "goimports" },
 	},
 
 	-- Configuración global del autoformateo al guardar
