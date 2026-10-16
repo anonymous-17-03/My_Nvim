@@ -1,8 +1,14 @@
-# My Neovim Configuration
+# NovaHacking · My Neovim Configuration
 
 ![Neovim Logo](img/logo.webp)
 
-Este repositorio contiene mi configuración personalizada de Neovim, diseñada para mejorar mi flujo de trabajo como desarrollador. Me basé en [FStanDev/myNvimConfig](https://github.com/FStanDev/myNvimConfig) para crear esta configuración.
+Mi configuración de Neovim reúne herramientas para escribir código, navegar proyectos, trabajar con Git y depurar programas, con una interfaz basada en TokyoNight y una barra de estado personalizada.
+
+Puedes clonarla y utilizarla como tu entorno de trabajo o adaptarla a tus preferencias. Incluye autocompletado, soporte LSP para varios lenguajes, formateo al guardar, exploradores de archivos, terminales integradas y el menú NovaHacking.
+
+Está organizada en módulos Lua y se ha probado con **Neovim 0.12.5 en Linux**. Las instrucciones de instalación utilizan rutas y comandos de Linux. Me basé en [FStanDev/myNvimConfig](https://github.com/FStanDev/myNvimConfig) para crear esta configuración.
+
+> **Para empezar:** prepara las dependencias, sigue la sección [Instalación](#instalación) y consulta la tabla de atajos principales. Si ya utilizas otra configuración, puedes [probar esta en paralelo](#probar-sin-sustituir-tu-configuración-habitual).
 
 ## Estructura del Proyecto
 
@@ -30,7 +36,8 @@ La configuración está dividida en módulos Lua para facilitar su mantenimiento
 | `lua/configs/telescope.lua` | Búsquedas, ventanas y atajos de Telescope. |
 | `lua/lualine_themes/` | Temas `NovaHacking`, `bubbles`, `slanted`, `evil` y `back`. |
 | `lua/plugins_lazy/` | Declaraciones de plugins: `editor.lua`, `git.lua`, `markdown.lua`, `spectre.lua`, `terminal.lua` y `ui.lua`. |
-| `lua/menus/novahacking.lua` | Menú personalizado opcional; se añade por separado. |
+| `lua/menus/` | Menús personalizados incluidos en el repositorio. |
+| `lua/menus/novahacking.lua` | Menú NovaHacking, accesible con `<leader>mh`. |
 
 El tema predeterminado de Lualine es **NovaHacking**. Las configuraciones específicas se mantienen en `lua/configs/` y los plugins se declaran en `lua/plugins_lazy/`.
 
@@ -47,7 +54,19 @@ El tema predeterminado de Lualine es **NovaHacking**. Las configuraciones espec�
 - `lazygit` para la interfaz Git y `glow` para previsualizar Markdown.
 - Zsh para las terminales integradas; si no está instalado, se utiliza el shell configurado en Neovim.
 
-Mason instala servidores y herramientas, pero los runtimes y compiladores de cada lenguaje deben estar disponibles en el sistema. Deno no es necesario para la configuración actual: Peek no está habilitado.
+Mason instala servidores y herramientas, pero los runtimes y compiladores de cada lenguaje deben estar disponibles en el sistema. Instala las dependencias con el gestor de paquetes de tu distribución; los nombres pueden variar entre distribuciones.
+
+No necesitas trabajar con todos los lenguajes de la lista: puedes instalar únicamente las herramientas que vas a utilizar. Para comprobar la versión de Neovim y las dependencias principales:
+
+```bash
+nvim --version
+git --version
+rg --version
+fd --version
+tree-sitter --version
+```
+
+Necesitas conexión a Internet durante la descarga inicial de plugins, herramientas y parsers. Configura la Nerd Font desde las preferencias de tu terminal; instalarla por sí solo no cambia la fuente activa.
 
 ## Instalación
 
@@ -58,7 +77,7 @@ Cierra las sesiones de Neovim antes de sustituir su configuración. Si ya existe
 ```bash
 backup_nvim="$HOME/nvim-respaldo-$(date +%Y%m%d-%H%M%S)"
 
-if [ -e "$HOME/.config/nvim" ]; then
+if [ -e "$HOME/.config/nvim" ] || [ -L "$HOME/.config/nvim" ]; then
     mv "$HOME/.config/nvim" "$backup_nvim"
     printf 'Configuración anterior guardada en: %s\n' "$backup_nvim"
 fi
@@ -68,7 +87,13 @@ Este procedimiento conserva también el historial de Git y los cambios locales d
 
 ### 2. Clonar el repositorio
 
-Por HTTPS:
+Crea el directorio de configuración si todavía no existe:
+
+```bash
+mkdir -p ~/.config
+```
+
+Por HTTPS (sin necesidad de configurar una clave SSH):
 
 ```bash
 git clone https://github.com/anonymous-17-03/My_Nvim.git ~/.config/nvim
@@ -110,21 +135,33 @@ rustup component add rustfmt
 
 Si gestionas Rust mediante los paquetes de tu distribución, utiliza el paquete de `rustfmt` correspondiente a esa instalación.
 
-### 4. Menú NovaHacking opcional
+### 4. Abrir el menú NovaHacking
 
-El menú personalizado se mantiene en [anonymous-17-03/menu](https://github.com/anonymous-17-03/menu). Guarda `novahacking.lua` dentro de tu configuración, en `lua/menus/`.
+El menú **ya está incluido en este repositorio**, dentro de:
 
-Para recuperar el archivo que ya utilizabas en una instalación anterior:
-
-```bash
-mkdir -p ~/.config/nvim/lua/menus
-cp ~/.local/share/nvim/lazy/menu/lua/menus/novahacking.lua \
-  ~/.config/nvim/lua/menus/novahacking.lua
+```text
+lua/menus/novahacking.lua
 ```
 
-Ejecuta la copia únicamente si ese archivo existe. Para una instalación nueva, descarga `novahacking.lua` del repositorio del menú y colócalo en el mismo destino. De esta forma puedes versionarlo junto con tu configuración y no necesitas modificar archivos dentro del plugin descargado.
+Al clonar la configuración se descarga junto con el resto de archivos. Después de que Lazy termine de instalar los plugins, ábrelo en modo normal pulsando **espacio, m y h**, en ese orden:
 
-Accede al menú con `<leader>mh`. Si no está instalado, el atajo muestra un aviso con la ruta esperada.
+```text
+<leader>mh
+```
+
+Puedes personalizar sus entradas editando `lua/menus/novahacking.lua`. Al estar dentro de tu configuración, sus cambios pueden guardarse en tu propio repositorio o fork.
+
+### 5. Comprobar la instalación
+
+Abre un archivo de un lenguaje que utilices y ejecuta estos comandos dentro de Neovim:
+
+```vim
+:checkhealth
+:checkhealth vim.lsp
+:ConformInfo
+```
+
+Comprueba que el servidor correspondiente esté instalado en Mason, que aparezcan sugerencias al escribir y que el formateador esté disponible. Los diagnósticos del código aparecen en el margen y en una ventana flotante al detener el cursor; no se muestran como texto permanente al lado de cada línea.
 
 Y listo 😀. Al abrir Neovim verás una interfaz como esta:
 
@@ -143,7 +180,31 @@ NVIM_APPNAME=nvim-nova-prueba nvim
 
 Esta opción separa configuración, plugins, estado y caché. Dentro de la sesión de prueba ejecuta igualmente `:MasonInstallAll` y `:TSInstallAll`. Abrir `nvim` sin esa variable sigue utilizando la configuración habitual.
 
-Si ya tienes una carpeta `nvim-nova-prueba`, utiliza otro nombre. Para el menú opcional, el destino será `~/.config/nvim-nova-prueba/lua/menus/`.
+Si ya tienes una carpeta `nvim-nova-prueba`, utiliza otro nombre y usa ese mismo nombre en `NVIM_APPNAME`. El menú NovaHacking también está incluido en esta instalación de prueba.
+
+## Primeros pasos
+
+Abre Neovim desde la carpeta de tu proyecto para que las búsquedas y terminales partan de una ubicación útil:
+
+```bash
+cd /ruta/a/tu/proyecto
+nvim .
+```
+
+También puedes abrir directamente un archivo:
+
+```bash
+nvim main.py
+```
+
+- Pulsa `i` para entrar en modo inserción y escribir; `Esc` vuelve al modo normal.
+- Usa `<leader>ff` para buscar archivos y `<leader>fg` para buscar texto.
+- Abre el árbol de archivos con `Ctrl+n` o el menú NovaHacking con `<leader>mh`.
+- Guarda con `Ctrl+s` o `:w`. El formato al guardar está activado para los tipos de archivo configurados.
+- En autocompletado, navega con `Ctrl+j` y `Ctrl+k`, y confirma la sugerencia seleccionada con `Ctrl+y`.
+- Si tienes dudas sobre un atajo, pulsa espacio y consulta Which-key.
+
+Si estás en la instalación de prueba, antepone `NVIM_APPNAME=nvim-nova-prueba` a los comandos que abren Neovim.
 
 ## Lenguajes configurados
 
@@ -165,7 +226,7 @@ Los servidores se declaran en `lua/configs/lspconfig.lua`. El soporte LSP, el re
 
 ## 🧠 Tecla Líder
 
-La tecla líder (leader key) está configurada como el espacio (`<Space>`). Esto significa que puedes utilizar combinaciones como `<leader>ff` para buscar archivos con Telescope o `<leader>l` para acceder a comandos relacionados con LSP, si se presiona solo el espacio `which-key` mostrará las posibles combinaciones de teclas y qué hacen.
+La tecla líder (leader key) es el espacio (`<Space>`). En modo normal, pulsa espacio y espera para ver las combinaciones disponibles en Which-key. Por ejemplo, `<leader>ff` significa pulsar espacio, f y f; abre la búsqueda de archivos con Telescope. `<leader>l` abre el grupo de acciones LSP.
 
 ![Imagen 4](img/img4.png)
 
@@ -185,9 +246,9 @@ vim.wo.relativenumber = true  -- Otras líneas en formato relativo
 
 ![Imagen 12](img/img12.png)
 
-> **Nota**: Para ver el menú de la imagen presiona `<leader>mh`; requiere instalar el menú NovaHacking opcional.
+> **Nota**: Para abrir el menú NovaHacking incluido en la configuración, presiona `<leader>mh`. Las opciones visibles pueden variar respecto a la captura.
 
-Estamos en la línea 24, pero tanto hacia arriba como hacia abajo se empieza a contar desde 1, para mostrar solo números absolutos, establece `vim.wo.relativenumber = false`.
+La línea actual muestra su número absoluto; las demás indican la distancia desde el cursor. Por ejemplo, una línea marcada con `3` está a tres líneas de distancia. Para mostrar solo números absolutos, establece `vim.wo.relativenumber = false`.
 
 ## 🎨 Personalizar Apariencia: Fondo y Temas
 
@@ -327,11 +388,7 @@ Por ejemplo, para personalizar Go, añade esta configuración antes de la llamad
 
 ```lua
 vim.lsp.config("gopls", {
-    settings = {
-        gopls = {
-            gofumpt = true,
-        },
-    },
+    -- Añade aquí las opciones del servidor que necesite tu proyecto.
 })
 ```
 
@@ -446,6 +503,7 @@ Para C, C++ y Rust, compila primero el programa con información de depuración 
 - **ToggleTerm:** terminales flotantes, horizontales y verticales.
 - **nvim-dap:** configuración de depuración para C, C++, Rust y Python.
 - **Glow:** previsualización de Markdown con `:Glow`.
+- **Menú NovaHacking:** menú personalizado incluido en `lua/menus/novahacking.lua`.
 - **Noice, Notify, Incline, Which-key y dashboard:** interfaz, notificaciones y acceso a herramientas.
 
 `MarkdownPreview`, `PeekOpen` y CheatSheet no están habilitados en esta versión.
@@ -476,7 +534,7 @@ Para C, C++ y Rust, compila primero el programa con información de depuración 
 | `<leader>hg` | Abrir LazyGit. |
 | `<leader>hs` / `<leader>hr` / `<leader>hp` | Stage / reset / previsualizar hunk. |
 | `<leader>s` | Abrir Spectre. |
-| `<leader>mh` | Menú NovaHacking opcional. |
+| `<leader>mh` | Abrir el menú NovaHacking incluido. |
 | `<leader>?` | Mostrar atajos locales del buffer. |
 | `<C-j>` / `<C-k>` en inserción | Sugerencia siguiente / anterior. |
 | `<C-y>` en inserción | Confirmar la sugerencia seleccionada. |
@@ -539,4 +597,6 @@ Se conservan las capturas del repositorio como referencia visual: el tema, los c
 
 ## Contribuciones
 
-Las contribuciones son bienvenidas. Por favor, abre un issue o pull request para discutir cualquier cambio.
+Las contribuciones son bienvenidas. Puedes crear un fork para adaptar la configuración a tu flujo de trabajo y abrir un issue o pull request para proponer cambios.
+
+Al reportar un problema, incluye la versión de Neovim, tu sistema operativo, los pasos para reproducirlo y el mensaje de error completo. Si afecta a un lenguaje, indica también el servidor LSP o formateador implicado y el resultado relevante de `:checkhealth` o `:ConformInfo`.
