@@ -68,6 +68,34 @@ tree-sitter --version
 
 Necesitas conexión a Internet durante la descarga inicial de plugins, herramientas y parsers. Configura la Nerd Font desde las preferencias de tu terminal; instalarla por sí solo no cambia la fuente activa.
 
+### Dependencia de Tree-sitter en Arch Linux
+
+El plugin `nvim-treesitter` necesita el ejecutable **`tree-sitter`** para compilar parsers. En Arch Linux, ese ejecutable lo proporciona el paquete **`tree-sitter-cli`**; tener el plugin de Neovim instalado no sustituye esta dependencia.
+
+Instálalo desde la terminal antes de ejecutar `:TSInstallAll`:
+
+```bash
+sudo pacman -S --needed tree-sitter-cli
+```
+
+También necesitas un compilador C. Si no tienes GCC instalado:
+
+```bash
+sudo pacman -S --needed gcc
+```
+
+Comprueba las herramientas:
+
+```bash
+command -v tree-sitter
+tree-sitter --version
+gcc --version
+```
+
+En una instalación de Arch mediante pacman, el primer comando debe mostrar `/usr/bin/tree-sitter`. En otras distribuciones, instala Tree-sitter CLI y un compilador C con el gestor correspondiente; el nombre del paquete puede variar.
+
+Referencia: [paquete tree-sitter-cli en Arch Linux](https://archlinux.org/packages/extra/x86_64/tree-sitter-cli/).
+
 ## Instalación
 
 ### 1. Conservar la configuración anterior
@@ -115,7 +143,15 @@ Lazy.nvim se instalará si hace falta y descargará los plugins. Espera a que te
 
 ### 3. Instalar herramientas y parsers
 
-Dentro de Neovim:
+Antes de instalar parsers, comprueba dentro de Neovim que el ejecutable de Tree-sitter esté disponible:
+
+```vim
+:echo executable('tree-sitter')
+```
+
+Debe devolver **`1`**. Si devuelve `0`, revisa la instalación de Tree-sitter CLI y el `PATH` del entorno desde el que abriste Neovim.
+
+Después ejecuta:
 
 ```vim
 :MasonInstallAll
@@ -571,6 +607,37 @@ Después de actualizar Tree-sitter, actualiza sus parsers con `:TSUpdate`.
 | `:Lazy` | Estado de los plugins. |
 
 Si los iconos aparecen como cuadros, comprueba la Nerd Font de tu terminal. Si un lenguaje no tiene resaltado, instala su parser y reabre el archivo. Si no hay autocompletado LSP, comprueba el servidor correspondiente y la raíz del proyecto.
+
+### Error al compilar parsers: `tree-sitter` no encontrado
+
+Si `:TSInstallAll` o `:TSInstall cpp` muestra un mensaje como este:
+
+```text
+[nvim-treesitter/install/cpp] error: Error during "tree-sitter build":
+ENOENT: no such file or directory (cmd): 'tree-sitter'
+```
+
+Neovim no encuentra el ejecutable necesario para compilar el parser. En Arch Linux:
+
+```bash
+sudo pacman -S --needed tree-sitter-cli
+command -v tree-sitter
+tree-sitter --version
+```
+
+Vuelve a Neovim y comprueba:
+
+```vim
+:echo executable('tree-sitter')
+```
+
+Cuando devuelva `1`, repite `:TSInstallAll`. Si solo quieres reintentar el parser de C++:
+
+```vim
+:TSInstall cpp
+```
+
+Si la terminal encuentra el ejecutable pero Neovim sigue devolviendo `0`, cierra Neovim y ábrelo desde esa terminal para que herede su entorno actualizado. Este error no requiere borrar la caché, eliminar los datos de Neovim ni reinstalar la configuración.
 
 ## Capturas de Pantalla
 
