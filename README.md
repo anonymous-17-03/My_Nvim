@@ -6,146 +6,170 @@ Este repositorio contiene mi configuración personalizada de Neovim, diseñada p
 
 ## Estructura del Proyecto
 
-```bash
-.
-├── img
-│   ├── img1.png
-│   ├── img...
-│   ├── img15.png
-│   └── logo.webp
-├── init.lua
-├── lua
-│   ├── base
-│   │   ├── init.lua
-│   │   ├── keymaps.lua
-│   │   ├── notify.lua
-│   │   └── plugins
-│   │       ├── init.lua
-│   │       └── lazy.lua
-│   ├── configs
-│   │   ├── formating.lua
-│   │   ├── lazy.lua
-│   │   ├── lspconfig.lua
-│   │   ├── lualine.lua
-│   │   ├── mason.lua
-│   │   ├── nvim-cmp.lua
-│   │   ├── nvimtree.lua
-│   │   ├── others.lua
-│   │   ├── rust-tools.lua
-│   │   ├── telescope.lua
-│   │   └── utils.lua
-│   ├── lualine_themes
-│   │   ├── back.lua
-│   │   ├── bubbles.lua
-│   │   ├── evil.lua
-│   │   ├── NovaHacking.lua
-│   │   └── slanted.lua
-│   └── plugins_lazy
-│       ├── editor.lua
-│       ├── git.lua
-│       ├── markdown.lua
-│       ├── spectre.lua
-│       ├── terminal.lua
-│       └── ui.lua
-└── README.md
-```
+La configuración está dividida en módulos Lua para facilitar su mantenimiento. La versión actual se ha probado con **Neovim 0.12.5**.
 
-Estructura:
+| Ruta | Función |
+| --- | --- |
+| `img/` | Logo y capturas del editor, de `img1.png` a `img15.png`. |
+| `init.lua` | Punto de entrada; carga el módulo `base`. |
+| `lazy-lock.json` | Revisiones de los plugins para reproducir la configuración. |
+| `lua/base/init.lua` | Opciones generales, tecla líder, números de línea y carga inicial. |
+| `lua/base/keymaps.lua` | Atajos generales, buffers, guardado y acceso a herramientas. |
+| `lua/base/notify.lua` | Notificaciones, bienvenida e información de clientes LSP. |
+| `lua/base/plugins/lazy.lua` | Instalación y arranque de Lazy.nvim. |
+| `lua/configs/lazy.lua` | Reúne los módulos de plugins por categoría. |
+| `lua/configs/lspconfig.lua` | Configuración y activación de servidores LSP. |
+| `lua/configs/mason.lua` | Opciones de Mason y lista `M.tools` para `:MasonInstallAll`. |
+| `lua/configs/formatting.lua` | Formateadores por tipo de archivo y formato al guardar. |
+| `lua/configs/treesitter.lua` | Instalación de parsers y activación del resaltado. |
+| `lua/configs/nvim-cmp.lua` | Autocompletado, snippets, fuentes e iconos. |
+| `lua/configs/dap.lua` | Adaptador codelldb y configuraciones para C, C++ y Rust. |
+| `lua/configs/gitsigns.lua` | Indicadores Git y atajos locales para cambios del archivo. |
+| `lua/configs/lualine.lua` | Selección del tema de la barra de estado. |
+| `lua/configs/nvimtree.lua` | Explorador de archivos, situado a la derecha. |
+| `lua/configs/telescope.lua` | Búsquedas, ventanas y atajos de Telescope. |
+| `lua/lualine_themes/` | Temas `NovaHacking`, `bubbles`, `slanted`, `evil` y `back`. |
+| `lua/plugins_lazy/` | Declaraciones de plugins: `editor.lua`, `git.lua`, `markdown.lua`, `spectre.lua`, `terminal.lua` y `ui.lua`. |
+| `lua/menus/novahacking.lua` | Menú personalizado opcional; se añade por separado. |
 
-- `img/`: Carpeta que contiene recursos gráficos utilizados para el README.
-  - `img1.png` a `img15.png`: Imágenes varias para visualización de la configuración final.
-  - `logo.webp`: Logo de Nvim (uso decorativo).
-- `init.lua`: Archivo principal que inicializa toda la configuración de Neovim. Carga módulos de la carpeta `lua/`.
-- `lua/`: Carpeta principal que contiene toda la configuración modular.
-  - `base/`: Contiene la configuración base del editor y del sistema de plugins.
-    - `init.lua`: Archivo de entrada para cargar los módulos base.
-    - `keymaps.lua`: Algunos atajos de teclado útiles.
-    - `notify.lua`: Configuración general de las notificaciones (por ejemplo, `nvim-notify`) y mensaje de bienvenida al abrir Neovim.
-    - `plugins/`: Configuración de la carga y organización de plugins.
-      - `init.lua`: Carga los archivos necesarios para gestionar plugins.
-      - `lazy.lua`: Configuración específica para Lazy.nvim, el gestor de plugins.
-  - `configs/`: Contiene configuraciones detalladas para plugins específicos y componentes de Neovim.
-    - `formating.lua`: Reglas y formato para mantener un estilo de código consistente.
-    - `lazy.lua`: Configuración avanzada y centralizada de Lazy.nvim; los nuevos plugins se agregan en `plugins_lazy`.
-    - `lspconfig.lua`: Configuración para servidores de lenguaje (LSP).
-    - `lualine.lua`: Configuración para la barra de estado Lualine.
-    - `mason.lua`: Configuración de Mason, que permite gestionar servidores LSP, herramientas de depuración y más.
-    - `nvim-cmp.lua`: Configuración del autocompletado con el plugin `nvim-cmp`.
-    - `nvimtree.lua`: Configuración del árbol de archivos `nvim-tree`.
-    - `others.lua`: Configuraciones adicionales no clasificadas en otros archivos.
-    - `rust-tools.lua`: Configuración personalizada para trabajar con Rust usando el plugin `rust-tools`.
-    - `telescope.lua`: Configuración para `telescope.nvim`, herramienta de búsqueda y navegación.
-    - `utils.lua`: Funciones auxiliares reutilizables en la configuración.
-  - `lualine_themes/`: Temas personalizados para la barra de estado Lualine.
-    - `back.lua`: Tema visual "back".
-    - `bubbles.lua`: Tema con estilo de burbujas.
-    - `evil.lua`: Tema con inspiración en el estilo de doom-emacs.
-    - `NovaHacking.lua`: Tema personalizado, (default).
-    - `slanted.lua`: Tema con estilo inclinado.
-  - `plugins_lazy/`: Configuraciones divididas por categoría para los plugins cargados mediante Lazy.nvim.
-    - `editor.lua`: Plugins orientados al editor (por ejemplo, mejoras de edición).
-    - `git.lua`: Plugins relacionados con Git y control de versiones.
-    - `markdown.lua`: Plugins orientados a la edición y vista de archivos Markdown.
-    - `spectre.lua`: Herramienta para sustituir un texto en todo el proyecto
-    - `terminal.lua`: Configuración de terminales embebidas dentro de Neovim.
-    - `ui.lua`: Plugins que afectan la interfaz de usuario (temas, íconos, notificaciones, etc.).
-- `README.md`: Documento principal que explica cómo usar, configurar e instalar este entorno Neovim personalizado.
+El tema predeterminado de Lualine es **NovaHacking**. Las configuraciones específicas se mantienen en `lua/configs/` y los plugins se declaran en `lua/plugins_lazy/`.
 
 ## Requisitos Previos
 
-- NVIM v0.10.0 o superior.
-- Git para clonar este repositorio.
-- Node.js y npm para soporte de algunas características.
-- Paquetes: `gcc`, `fzf`, `fd`, `ripgrep`, `deno`, `bat`, `curl` y `lazygit`.
+- **Neovim 0.12.5**, versión utilizada para validar esta configuración.
+- Git, curl, tar y unzip para descargar e instalar plugins y herramientas.
+- Compilador C y Tree-sitter CLI compatible con la revisión de `nvim-treesitter` instalada para compilar parsers.
+- `ripgrep` para buscar texto con Telescope y Spectre; `fd` para búsqueda de archivos.
+- Una **Nerd Font** configurada en la terminal para mostrar los iconos.
+- Un proveedor de portapapeles: por ejemplo, `wl-clipboard` en Wayland.
+- Node.js/npm, Python con soporte de entornos virtuales, Go y PHP según las herramientas que instales con Mason.
+- Rust/Cargo y `rustfmt` si trabajas con Rust.
+- `lazygit` para la interfaz Git y `glow` para previsualizar Markdown.
+- Zsh para las terminales integradas; si no está instalado, se utiliza el shell configurado en Neovim.
+
+Mason instala servidores y herramientas, pero los runtimes y compiladores de cada lenguaje deben estar disponibles en el sistema. Deno no es necesario para la configuración actual: Peek no está habilitado.
 
 ## Instalación
 
-Antes que nada borra configuraciones anteriores de nvim si es necesario:
+### 1. Conservar la configuración anterior
+
+Cierra las sesiones de Neovim antes de sustituir su configuración. Si ya existe `~/.config/nvim`, muévela a un respaldo:
 
 ```bash
-rm -rf ~/.config/nvim
-rm -rf ~/.local/share/nvim
+backup_nvim="$HOME/nvim-respaldo-$(date +%Y%m%d-%H%M%S)"
+
+if [ -e "$HOME/.config/nvim" ]; then
+    mv "$HOME/.config/nvim" "$backup_nvim"
+    printf 'Configuración anterior guardada en: %s\n' "$backup_nvim"
+fi
 ```
 
-> **Nota**: Tambien pude hacer una copia de seguridad.
+Este procedimiento conserva también el historial de Git y los cambios locales de esa carpeta. No es necesario borrar `~/.local/share/nvim` para instalar la configuración.
 
-Clona este repositorio en tu directorio de configuración de Neovim y ejecuta nvim, se instalará todos los paquetes de Lazy necesarios automáticamente: 
+### 2. Clonar el repositorio
+
+Por HTTPS:
 
 ```bash
-git clone https://github.com/anonymous-17-03/My_Nvim.git ~/.config/nvim && nvim
+git clone https://github.com/anonymous-17-03/My_Nvim.git ~/.config/nvim
 ```
 
-Cuando se instalen todos los complementos de Lazy, ejecute `:MasonInstallAll` para instalar los paquetes de Mason dentro de nvim, hay un menú personalizado adicional que puede instalar de la siguiente manera:
+O por SSH, si ya tienes tu clave vinculada con GitHub:
 
 ```bash
-git clone https://github.com/anonymous-17-03/menu
-cd menu && cp novahacking.lua ~/.local/share/nvim/lazy/menu/lua/menus
+git clone git@github.com:anonymous-17-03/My_Nvim.git ~/.config/nvim
 ```
-Y listo 😀, al entrar de nuevo a `nvim` vera:
+
+Ejecuta **solo una** de las dos opciones. Después abre Neovim:
+
+```bash
+nvim
+```
+
+Lazy.nvim se instalará si hace falta y descargará los plugins. Espera a que termine y reinicia Neovim.
+
+### 3. Instalar herramientas y parsers
+
+Dentro de Neovim:
+
+```vim
+:MasonInstallAll
+:TSInstallAll
+```
+
+- `:MasonInstallAll` instala las herramientas incluidas en `M.tools`, dentro de `lua/configs/mason.lua`.
+- `:TSInstallAll` instala los parsers definidos en `lua/configs/treesitter.lua`.
+
+Espera a que terminen ambas tareas y reinicia Neovim. También puedes instalar solo una herramienta con `:MasonInstall nombre` o un parser con `:TSInstall lenguaje`.
+
+`rustfmt` se instala mediante tu toolchain de Rust. Si utilizas rustup:
+
+```bash
+rustup component add rustfmt
+```
+
+Si gestionas Rust mediante los paquetes de tu distribución, utiliza el paquete de `rustfmt` correspondiente a esa instalación.
+
+### 4. Menú NovaHacking opcional
+
+El menú personalizado se mantiene en [anonymous-17-03/menu](https://github.com/anonymous-17-03/menu). Guarda `novahacking.lua` dentro de tu configuración, en `lua/menus/`.
+
+Para recuperar el archivo que ya utilizabas en una instalación anterior:
+
+```bash
+mkdir -p ~/.config/nvim/lua/menus
+cp ~/.local/share/nvim/lazy/menu/lua/menus/novahacking.lua \
+  ~/.config/nvim/lua/menus/novahacking.lua
+```
+
+Ejecuta la copia únicamente si ese archivo existe. Para una instalación nueva, descarga `novahacking.lua` del repositorio del menú y colócalo en el mismo destino. De esta forma puedes versionarlo junto con tu configuración y no necesitas modificar archivos dentro del plugin descargado.
+
+Accede al menú con `<leader>mh`. Si no está instalado, el atajo muestra un aviso con la ruta esperada.
+
+Y listo 😀. Al abrir Neovim verás una interfaz como esta:
 
 ![Imagen 1](img/img1.png)
 
-## Lenguajes añadidos previamente
+### Probar sin sustituir tu configuración habitual
 
-- Python
-- Lua
-- TypeScript
-- Astro
-- Svelte
-- Bash
-- C y C++
-- Go
-- Rust
-- HTML
-- PHP
+También puedes clonar el repositorio en una carpeta independiente:
+
+```bash
+git clone https://github.com/anonymous-17-03/My_Nvim.git \
+  ~/.config/nvim-nova-prueba
+
+NVIM_APPNAME=nvim-nova-prueba nvim
+```
+
+Esta opción separa configuración, plugins, estado y caché. Dentro de la sesión de prueba ejecuta igualmente `:MasonInstallAll` y `:TSInstallAll`. Abrir `nvim` sin esa variable sigue utilizando la configuración habitual.
+
+Si ya tienes una carpeta `nvim-nova-prueba`, utiliza otro nombre. Para el menú opcional, el destino será `~/.config/nvim-nova-prueba/lua/menus/`.
+
+## Lenguajes configurados
+
+| Lenguaje | Servidor LSP |
+| --- | --- |
+| Python | `pyright` |
+| Lua | `lua_ls` |
+| JavaScript y TypeScript | `ts_ls` |
+| Astro | `astro` |
+| Svelte | `svelte` |
+| Bash | `bashls` |
+| C y C++ | `clangd` |
+| Go | `gopls` |
+| Rust | `rust_analyzer` |
+| HTML | `html` |
+| PHP | `intelephense` |
+
+Los servidores se declaran en `lua/configs/lspconfig.lua`. El soporte LSP, el resaltado de Tree-sitter y el formateo son componentes distintos: instalar un parser no instala un servidor ni un formateador.
 
 ## 🧠 Tecla Líder
 
-La tecla líder (leader key) está configurada como el espacio (`<Space>`). Esto significa que puedes utilizar combinaciones como `<leader>ff` para buscar archivos con Telescope o `<leader>l` para acceder a comandos relacionados con LSP, si se presiona solo el espacio `which-key` mostrará las posibles combinaciones de tecla y que hacen.
+La tecla líder (leader key) está configurada como el espacio (`<Space>`). Esto significa que puedes utilizar combinaciones como `<leader>ff` para buscar archivos con Telescope o `<leader>l` para acceder a comandos relacionados con LSP, si se presiona solo el espacio `which-key` mostrará las posibles combinaciones de teclas y qué hacen.
 
 ![Imagen 4](img/img4.png)
 
-También se instaló un plugin (CheatSheet) para que pueda tener un panorama completo de todas las posibles combinaciones de tecla, puede acceder a ella con `<leader>a`:
+**Captura histórica de CheatSheet:** se conserva como referencia de la personalización anterior. Ese plugin no está habilitado en la versión actual y `<leader>a` no está configurado. Para consultar los atajos disponibles utiliza Which-key: pulsa espacio o `<leader>?` para los del buffer actual.
 
 ![Imagen 11](img/img11.png)
 
@@ -161,20 +185,33 @@ vim.wo.relativenumber = true  -- Otras líneas en formato relativo
 
 ![Imagen 12](img/img12.png)
 
-> **Nota**: Para ver el menú de la imagen precione: `<leader>mh`.
+> **Nota**: Para ver el menú de la imagen presiona `<leader>mh`; requiere instalar el menú NovaHacking opcional.
 
-Estamos en la línea 24, pero tanto hacia riba como hacia abajo se empieza a contar desde 1, para mostrar solo números absolutos, establece `vim.wo.relativenumber = false`.
+Estamos en la línea 24, pero tanto hacia arriba como hacia abajo se empieza a contar desde 1, para mostrar solo números absolutos, establece `vim.wo.relativenumber = false`.
 
 ## 🎨 Personalizar Apariencia: Fondo y Temas
 
-La apariencia del editor se configura en `lua/plugins_lazy/ui.lua`. Actualmente, se utiliza el tema `tokyonight` con fondo transparente. Si prefieres un fondo sólido, modifica la siguiente línea de la siguiente manera:
+La apariencia del editor se configura en `lua/plugins_lazy/ui.lua`. Se utiliza **TokyoNight Night** con fondo transparente.
+
+Para un fondo sólido, cambia las opciones del `setup` de TokyoNight:
+
+```lua
+transparent = false,
+styles = {
+    sidebars = "dark",
+    floats = "dark",
+},
+```
+
+Después elimina o comenta el bucle que aplica `guibg=NONE` a `highlight_groups`; de lo contrario seguirá forzando la transparencia de esos elementos. Si prefieres un color específico, puedes sustituir ese bucle por:
 
 ```lua
 for _, group in ipairs(highlight_groups) do
-	-- Para fondo solido usar -> guibg=#1f2335 o el color que desee.
-	vim.cmd("hi " .. group .. " guibg=#1f2335 ctermbg=NONE")
+    vim.api.nvim_set_hl(0, group, { bg = "#1f2335" })
 end
 ```
+
+El fondo final también depende de la transparencia configurada en tu terminal.
 
 #### Transparente
 
@@ -184,7 +221,16 @@ end
 
 ![Imagen 15](img/img15.png)
 
-Si deseas utilizar un tema diferente, comenta o elimina esta configuración y añade la correspondiente al nuevo tema que prefieras.
+Si deseas utilizar otro tema de colores, adapta su declaración en `lua/plugins_lazy/ui.lua` y su llamada a `colorscheme`.
+
+Para cambiar únicamente la barra de estado, edita `lua/configs/lualine.lua`:
+
+```lua
+local theme_name = "NovaHacking"
+return require("lualine_themes." .. theme_name)
+```
+
+Los valores disponibles son `NovaHacking`, `bubbles`, `slanted`, `evil` y `back`. Cada tema devuelve sus opciones y Lualine se configura una sola vez.
 
 ## 🔌 Agregar Nuevos Plugins
 
@@ -205,75 +251,103 @@ Para añadir nuevos plugins utilizando Lazy.nvim, simplemente edita el archivo c
 
 Lazy.nvim se encargará de gestionar la instalación y carga del plugin automáticamente.
 
-## 🧰 Configuración de Mason y Formateo
+## 🧰 Configuración de Mason, LSP y Formateo
 
-### 📦 Mason: Gestor de herramientas LSP, DAP y formatters
+### 📦 Mason: herramientas de desarrollo
 
-Mason permite instalar fácilmente servidores de lenguaje (LSP), depuradores (DAP) y herramientas de formateo desde Neovim.
+**Archivo:** `lua/configs/mason.lua`.
 
-#### 📁 Archivo: `lua/configs/mason.lua`
-
-Aquí se encuentra la configuración principal de Mason. Puedes personalizar el estilo de la interfaz y las herramientas que deben instalarse automáticamente.
+La lista de herramientas está en `M.tools`; la interfaz se configura en `M.setup()`. Este es el módulo utilizado por la configuración:
 
 ```lua
-return {
-	ui = {
-		border = "rounded", -- Requiere que Neovim tenga soporte para bordes redondeados
-		borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-		icons = {
-			package_installed = "✓",
-			package_pending = "➜",
-			package_uninstalled = "✗",
-		},
-	},
-	-- Herramientas que se instalarán automáticamente
-	ensure_installed = {
-		"lua-language-server",       -- LSP para Lua
-		"stylua",                    -- Formateador para Lua
-		"rust-analyzer",             -- LSP para Rust
-		"pyright",                   -- LSP para Python
-		"clangd",                    -- LSP para C y C++
-		"prettier",                  -- Formateador para web (JS, TS, HTML, etc.)
-		"rustfmt",                   -- Formateador para Rust
-		"black",                     -- Formateador para Python
-		"isort",                     -- Ordenador de imports para Python
-		"typescript-language-server",-- LSP para JS/TS
-		"svelte-language-server",    -- LSP para Svelte
-		"codelldb",                  -- Depurador para C/C++
-		"debugpy",                   -- Depurador para Python
-		"bash-language-server",      -- LSP para Bash
-		"shfmt",                     -- Formateador para Bash
-		"astro-language-server",     -- LSP para Astro
-		"html-lsp",                  -- LSP para HTML
-		"intelephense",              -- LSP para PHP
-		"php-cs-fixer",              -- Formateador para PHP
-		"gopls", -- LSP para GO
-		"gofumpt", -- Formateador para GO
-		"goimports", -- Formateador para GO
-	},
-	max_concurrent_installers = 7, -- Máximo de herramientas instaladas simultáneamente
+local M = {}
+-- Ejecuta :MasonInstallAll cuando quieras instalar las herramientas de esta lista.
+-- rustfmt pertenece al toolchain de Rust, no al registro de Mason.
+M.tools = {
+	"lua-language-server",
+	"stylua",
+	"rust-analyzer",
+	"pyright",
+	"clangd",
+	"prettier",
+	"black",
+	"isort",
+	"typescript-language-server",
+	"svelte-language-server",
+	"codelldb",
+	"debugpy",
+	"bash-language-server",
+	"shfmt",
+	"astro-language-server",
+	"html-lsp",
+	"intelephense",
+	"php-cs-fixer",
+	"gopls",
+	"gofumpt",
+	"goimports",
 }
+function M.setup()
+	require("mason").setup({
+		ui = {
+			border = "rounded",
+			icons = {
+				package_installed = "✓",
+				package_pending = "➜",
+				package_uninstalled = "✗",
+			},
+		},
+		max_concurrent_installers = 7,
+	})
+	vim.api.nvim_create_user_command("MasonInstallAll", function()
+		vim.cmd("MasonInstall " .. table.concat(M.tools, " "))
+	end, { desc = "Instalar herramientas de NovaHacking" })
+end
+return M
 ```
 
-> **Nota**: Los servidores se instalan con el comando `:MasonInstall shfmt` o `MasonInstallAll`  Para instalar los paquetes en la lista `ensure_installed`, luego puede agregarlos y configurarlos en `lua/configs/lspconfig.lua`, ejemplo:
+Añadir un nombre a `M.tools` prepara su instalación cuando ejecutes `:MasonInstallAll`. Esta lista no es una opción nativa `ensure_installed` de Mason ni instala herramientas por sí sola al arrancar.
 
-```lua
-lspconfig.gopls.setup({}) -- GO
+Para una herramienta concreta:
+
+```vim
+:MasonInstall shfmt
 ```
 
 #### Mason
 
 ![Imagen 7](img/img7.png)
 
-### ✨ Formateo Automático Multilenguaje
+### 🧠 Configurar servidores LSP
 
-Esta configuración permite formatear tu código automáticamente al guardar el archivo, y define qué herramientas usar por tipo de archivo.
+**Archivo:** `lua/configs/lspconfig.lua`.
 
-#### 📁 Archivo: `lua/configs/formating.lua`
+La configuración utiliza `vim.lsp.config()` y `vim.lsp.enable()`. `nvim-lspconfig` aporta las definiciones de los servidores y `cmp-nvim-lsp` sus capacidades de autocompletado.
+
+Por ejemplo, para personalizar Go, añade esta configuración antes de la llamada final a `vim.lsp.enable(servers)`:
+
+```lua
+vim.lsp.config("gopls", {
+    settings = {
+        gopls = {
+            gofumpt = true,
+        },
+    },
+})
+```
+
+`gopls` ya está incluido en la tabla `servers`. Si añades otro servidor, incorpora su identificador a esa tabla y asegúrate de instalar su ejecutable. El nombre del paquete de Mason puede ser diferente al identificador LSP: por ejemplo, `lua-language-server` y `lua_ls`.
+
+La activación automática de mason-lspconfig está deshabilitada porque esta configuración activa explícitamente su lista de servidores.
+
+### ✨ Formateo automático multilenguaje
+
+**Archivo:** `lua/configs/formatting.lua`.
+
+Conform formatea al guardar y también al pulsar `<leader>lf`. Su configuración es:
 
 ```lua
 return {
-	-- Asignación de formateadores por tipo de archivo
+	-- Tabla que define qué formateadores usar por tipo de archivo
 	formatters_by_ft = {
 		-- Web
 		javascript = { "prettier" },
@@ -286,13 +360,13 @@ return {
 		json = { "prettier" },
 		yaml = { "prettier" },
 		graphql = { "prettier" },
-		php = { "php-cs-fixer" },
+		php = { "php_cs_fixer" },
 
 		-- Lua
 		lua = { "stylua" },
 
 		-- Python
-		python = { "isort", "black" }, -- isort ordena los imports, black formatea el código
+		python = { "isort", "black" }, -- isort ordena imports, black formatea el resto
 
 		-- Rust
 		rust = { "rustfmt" },
@@ -301,48 +375,148 @@ return {
 		bash = { "shfmt" },
 		sh = { "shfmt" },
 
-		-- Docker
-		dockerfile = { "prettier" },
-
-        -- GO
+		-- Go
 		go = { "gofumpt", "goimports" },
 	},
 
-	-- Configuración global del autoformateo al guardar
+	-- Configuración para el autoformateo al guardar archivos
 	format_on_save = {
-		lsp_fallback = true,   -- Usa formateadores externos si el LSP no soporta formateo
-		async = false,         -- Espera a que termine el formateo antes de continuar
-		timeout_ms = 1000,     -- Tiempo máximo en milisegundos
+		lsp_format = "fallback", -- Usar LSP solo si no hay formateador externo disponible
+		timeout_ms = 1000, -- Tiempo máximo para el formateo
 	},
 }
 ```
 
-#### ➕ ¿Cómo añadir nuevos formateadores?
+`lsp_format = "fallback"` utiliza el formato del LSP cuando no hay un formateador externo disponible. No significa que cualquier error de ejecución de un formateador se sustituya automáticamente por el LSP.
 
-1. Instala el binario correspondiente con Mason (por ejemplo, `shfmt`).
-2. Añade el tipo de archivo a la tabla `formatters_by_ft`:
+Detalles importantes:
+
+- PHP utiliza el identificador `php_cs_fixer` en Conform; el ejecutable y paquete de Mason se llaman `php-cs-fixer`.
+- Python ejecuta `isort` y después `black`.
+- Go ejecuta `gofumpt` y después `goimports`.
+- Rust usa `rustfmt`; el autoformateo adicional de `rust.vim` está desactivado para evitar duplicación.
+- Svelte necesita el soporte correspondiente de Prettier en el entorno del proyecto. Astro tiene LSP y parser configurados, pero no una entrada explícita de formateo en esta tabla.
+- Dockerfile no tiene Prettier asignado: no se presupone un parser externo para ese formato.
+
+#### ➕ Añadir un formateador
+
+1. Instala el ejecutable mediante Mason o tu gestor de paquetes.
+2. Añade su identificador de Conform al tipo de archivo correspondiente en `formatters_by_ft`.
+3. Reinicia Neovim y comprueba `:ConformInfo`.
+
+Por ejemplo, para archivos shell:
 
 ```lua
-bash = { "shfmt" },
+sh = { "shfmt" },
 ```
 
-3. Reinicia Neovim para aplicar los cambios.
+### 🌳 Tree-sitter
+
+**Archivo:** `lua/configs/treesitter.lua`.
+
+`:TSInstallAll` instala los parsers de la lista configurada. También puedes instalar uno individualmente:
+
+```vim
+:TSInstall rust
+```
+
+El resaltado se activa para buffers normales cuando su parser puede cargarse. La pantalla `dashboard` se excluye explícitamente; no necesita un parser. Después de instalar un parser, vuelve a abrir el archivo para activar su resaltado.
+
+### 🐞 Depuración
+
+- C, C++ y Rust usan codelldb, configurado en `lua/configs/dap.lua`.
+- Python utiliza nvim-dap-python y el entorno de debugpy instalado por Mason.
+- `<leader>db` alterna un breakpoint, `<leader>dc` continúa o inicia la depuración y `<leader>ds` abre el panel de scopes.
+
+Para C, C++ y Rust, compila primero el programa con información de depuración y selecciona su ejecutable cuando se solicite. La configuración no compila el proyecto automáticamente.
 
 ## Características
 
-- Lazy.nvim: Gestión eficiente de plugins.
-- LSP Config: Soporte para múltiples lenguajes de programación.
-- Telescope: Búsqueda rápida en el proyecto.
-- Lualine: Barra de estado personalizada.
-- NvimTree: Explorador de archivos tipo árbol.
-- Mason: Gestión de herramientas de desarrollo como LSPs y DAPs.
-- Rust Tools: Mejor soporte para desarrollo en Rust.
-- Previsualización de archivos Markdown con los siguientes comandos: `:Glow`, `:MarkdownPreview` y `:PeekOpen`.
-- Y muchas más funcionalidades (Puede ver el código completamente documentado).
+- **Lazy.nvim:** instalación, carga y revisiones de plugins mediante lockfile.
+- **LSP nativo:** diagnósticos, navegación, referencias, renombrado y acciones de código.
+- **nvim-cmp y LuaSnip:** autocompletado con iconos y snippets.
+- **Tree-sitter:** resaltado sintáctico mediante parsers por lenguaje.
+- **Telescope:** búsqueda de archivos, texto, buffers, ayuda e historial.
+- **Lualine:** barra de estado personalizada con el tema NovaHacking.
+- **NvimTree y Oil:** árbol a la derecha y explorador flotante con `-`.
+- **Mason y Conform:** gestión de herramientas y formato manual/al guardar.
+- **Snacks:** guías de indentación, columna de estado y otras funciones habilitadas en `ui.lua`.
+- **Gitsigns y LazyGit:** cambios por archivo e interfaz Git integrada.
+- **Spectre:** búsqueda y reemplazo en el proyecto.
+- **ToggleTerm:** terminales flotantes, horizontales y verticales.
+- **nvim-dap:** configuración de depuración para C, C++, Rust y Python.
+- **Glow:** previsualización de Markdown con `:Glow`.
+- **Noice, Notify, Incline, Which-key y dashboard:** interfaz, notificaciones y acceso a herramientas.
+
+`MarkdownPreview`, `PeekOpen` y CheatSheet no están habilitados en esta versión.
+
+## ⌨️ Atajos principales
+
+`<leader>` equivale a espacio. Las combinaciones se pulsan en modo normal salvo las de autocompletado.
+
+| Atajo | Acción |
+| --- | --- |
+| `<leader>ff` / `<leader>fg` | Buscar archivos / texto. |
+| `<leader>fb` / `<leader>fr` | Buffers / archivos recientes. |
+| `<C-n>` / `<leader>n` | Alternar / enfocar NvimTree. |
+| `-` | Abrir Oil flotante. |
+| `<Tab>` / `<S-Tab>` | Buffer siguiente / anterior. |
+| `<leader>bd` | Cerrar el buffer actual. |
+| `<leader>bo` | Cerrar otros buffers limpios; conservar modificados y terminales. |
+| `<C-s>` / `<A-s>` | Guardar archivo / guardar todos. |
+| `S` (Shift+s) | Guardar y salir del archivo actual. |
+| `<leader>lf` | Formatear con Conform. |
+| `<leader>la` / `<leader>ca` | Acciones de código. |
+| `<leader>lr` | Renombrar un símbolo. |
+| `<leader>lh` | Documentación del símbolo. |
+| `<leader>lgd` / `<leader>lgr` | Definición / referencias. |
+| `[d` / `]d` | Diagnóstico anterior / siguiente. |
+| `<leader>li` / `<leader>ln` | Salud LSP / información de los clientes del buffer. |
+| `<leader>tf` / `<leader>th` / `<leader>tv` | Terminal flotante / horizontal / vertical. |
+| `<leader>hg` | Abrir LazyGit. |
+| `<leader>hs` / `<leader>hr` / `<leader>hp` | Stage / reset / previsualizar hunk. |
+| `<leader>s` | Abrir Spectre. |
+| `<leader>mh` | Menú NovaHacking opcional. |
+| `<leader>?` | Mostrar atajos locales del buffer. |
+| `<C-j>` / `<C-k>` en inserción | Sugerencia siguiente / anterior. |
+| `<C-y>` en inserción | Confirmar la sugerencia seleccionada. |
+
+## 🔄 Actualización y diagnóstico
+
+Para obtener cambios del repositorio, revisa primero si tienes modificaciones locales:
+
+```bash
+cd ~/.config/nvim
+git status
+git pull --ff-only
+```
+
+Si tienes cambios propios, guárdalos o intégralos antes de actualizar. `--ff-only` evita crear un merge automáticamente cuando las historias divergen.
+
+Para aplicar las revisiones de plugins del lockfile:
+
+```vim
+:Lazy restore
+```
+
+Para buscar revisiones nuevas de plugins, utiliza `:Lazy update` y revisa los cambios de `lazy-lock.json` antes de guardarlos en Git. Este archivo no fija las versiones de herramientas de Mason ni de parsers.
+
+Después de actualizar Tree-sitter, actualiza sus parsers con `:TSUpdate`.
+
+| Comando | Qué revisar |
+| --- | --- |
+| `:checkhealth` | Estado general y dependencias. |
+| `:checkhealth vim.lsp` | Servidores y clientes LSP. |
+| `:Mason` | Instalaciones y errores de herramientas. |
+| `:ConformInfo` | Formateadores disponibles y registro de errores. |
+| `:messages` | Mensajes del editor. |
+| `:Lazy` | Estado de los plugins. |
+
+Si los iconos aparecen como cuadros, comprueba la Nerd Font de tu terminal. Si un lenguaje no tiene resaltado, instala su parser y reabre el archivo. Si no hay autocompletado LSP, comprueba el servidor correspondiente y la raíz del proyecto.
 
 ## Capturas de Pantalla
 
-A continuación, se muestran algunos ejemplos de cómo se ve la configuración final de nvim:
+Se conservan las capturas del repositorio como referencia visual: el tema, los colores y la distribución general se mantienen. Algunos detalles de los menús, mensajes o versiones de plugins pueden variar. La captura de CheatSheet está identificada como histórica en su sección.
 
 
 ![Imagen 2](img/img2.png)
