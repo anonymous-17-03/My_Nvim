@@ -9,7 +9,6 @@ vim.cmd([[
 vim.o.showtabline = 0
 
 -- Cargamos el módulo de lualine
-local lualine = require("lualine")
 
 -- Definimos una tabla de colores para usar en el tema y componentes
 local colors = {
@@ -120,6 +119,7 @@ local config = {
 					local result = {}
 					for i, buffer in ipairs(buffers) do
 						local name = vim.fn.fnamemodify(buffer.name, ":t")
+						name = (name ~= "" and name or "[No Name]"):gsub("%%", "%%%%")
 						if buffer.bufnr == vim.fn.bufnr("%") then
 							table.insert(result, "%#LualineBuffersCurrent#" .. name .. "%#LualineBuffers#")
 						else
@@ -140,8 +140,8 @@ local config = {
 				-- Muestra el cliente LSP activo o "No Active Lsp" si no hay ninguno
 				function()
 					local msg = "No Active Lsp"
-					local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-					local clients = vim.lsp.get_active_clients()
+					local buf_ft = vim.bo.filetype
+					local clients = vim.lsp.get_clients({ bufnr = 0 })
 					if next(clients) == nil then
 						return msg
 					end
@@ -271,4 +271,4 @@ local config = {
 }
 
 -- Finalmente, se inicializa lualine con la configuración arriba definida
-lualine.setup(config)
+return config

@@ -18,8 +18,8 @@ notify.setup({
 })
 
 -- Mensaje de bienvenida
-local user = vim.loop.os_get_passwd().username
-local is_root = vim.loop.getuid() == 0
+local user = vim.uv.os_get_passwd().username
+local is_root = vim.uv.getuid() == 0
 
 if is_root then
 	notify("💀 Bienvenido de nuevo root", "error", {
@@ -35,12 +35,15 @@ end
 
 -- Traducción de niveles del LSP a notify
 local severity = { "error", "warn", "info", "info" }
-vim.lsp.handlers["window/showMessage"] = function(_, method, params, _)
-	notify(method.message, severity[params.type])
+vim.lsp.handlers["window/showMessage"] = function(err, result, _)
+	if err or not result then
+		return
+	end
+	notify(result.message, severity[result.type] or "info")
 end
 
 local function show_lsp_info()
-	local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+	local clients = vim.lsp.get_clients({ bufnr = 0 })
 	if #clients == 0 then
 		notify("   No hay un LSP activo!", "warn", {
 			title = "LSP Info",
@@ -55,7 +58,8 @@ local function show_lsp_info()
 		local name = client.name
 		local id = client.id
 		local root_dir = client.config.root_dir or "Desconocido"
-		local cmd = table.concat(client.config.cmd or {}, " ")
+		local cmd = type(client.config.cmd) == "table" and table.concat(client.config.cmd, " ")
+			or "Función de transporte"
 		local encoding = client.offset_encoding or "Desconocido"
 		local attached_buffers = vim.tbl_count(client.attached_buffers or {})
 

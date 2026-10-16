@@ -1,6 +1,6 @@
 return {
 	filters = {
-		dotfiles = true, -- Mostrar archivos ocultos (dotfiles)
+		dotfiles = true, -- Ocultar dotfiles; filters.exclude permite excepciones
 		exclude = {
 			vim.fn.stdpath("config") .. "/lua/custom", -- Excluir config personalizada
 			".gitignore", -- Excluir archivo .gitignore
@@ -8,7 +8,7 @@ return {
 		},
 	},
 	disable_netrw = true, -- Desactiva el explorador nativo de archivos de Neovim
-	hijack_netrw = true, -- Reemplaza netrw al abrir carpetas
+	hijack_netrw = false, -- netrw ya está desactivado antes de cargar plugins
 	hijack_cursor = true, -- Cursor se mantiene en el árbol al abrir archivos
 	hijack_unnamed_buffer_when_opening = false, -- No reemplaza buffers sin nombre
 	sync_root_with_cwd = true, -- Sincroniza la raíz del árbol con el directorio actual

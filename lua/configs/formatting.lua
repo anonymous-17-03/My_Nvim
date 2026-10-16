@@ -15,7 +15,7 @@ return {
 		json = { "prettier" },
 		yaml = { "prettier" },
 		graphql = { "prettier" },
-		php = { "php-cs-fixer" },
+		php = { "php_cs_fixer" },
 
 		-- Lua
 		lua = { "stylua" },
@@ -30,17 +30,13 @@ return {
 		bash = { "shfmt" },
 		sh = { "shfmt" },
 
-		-- Dockerfile
-		dockerfile = { "prettier" },
-
 		-- Go
 		go = { "gofumpt", "goimports" },
 	},
 
 	-- Configuración para el autoformateo al guardar archivos
 	format_on_save = {
-		lsp_fallback = true, -- Si el LSP no tiene formateo, usar el formateador externo
-		async = false, -- Formateo síncrono (espera a que termine antes de continuar)
+		lsp_format = "fallback", -- Usar LSP solo si no hay formateador externo disponible
 		timeout_ms = 1000, -- Tiempo máximo para el formateo
 	},
 }

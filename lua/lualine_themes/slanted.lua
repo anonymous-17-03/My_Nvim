@@ -68,7 +68,7 @@ local function modified()
 	return ""
 end
 
-require("lualine").setup({
+return {
 	options = {
 		theme = theme,
 		component_separators = "",
@@ -121,4 +121,4 @@ require("lualine").setup({
 		lualine_c = { "%f %y %m" },
 		lualine_x = {},
 	},
-})
+}

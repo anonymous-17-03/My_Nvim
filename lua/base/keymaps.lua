@@ -1,4 +1,3 @@
-local keymap = vim.keymap
 local wk = require("which-key")
 
 -- Función para cerrar todos los buffers excepto el actual
@@ -6,7 +5,11 @@ local function close_other_buffers()
 	local current_buf = vim.api.nvim_get_current_buf()
 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
 		if buf ~= current_buf and vim.api.nvim_buf_is_loaded(buf) then
-			vim.api.nvim_buf_delete(buf, { force = true })
+			if vim.bo[buf].modified or vim.bo[buf].buftype == "terminal" then
+				vim.notify("Se conserva el buffer " .. buf .. " (modificado o terminal)", vim.log.levels.WARN)
+			else
+				vim.api.nvim_buf_delete(buf, { force = false })
+			end
 		end
 	end
 end

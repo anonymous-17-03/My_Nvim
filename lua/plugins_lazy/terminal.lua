@@ -1,9 +1,6 @@
 return {
 	-- Plugin que permite abrir terminales flotantes, verticales u horizontales.
 	-- Se puede mapear con atajos para mayor rapidez y eficiencia.
-	-- Mantiene configuración persistente como tamaño o shell por defecto.
-	-- Admite shells personalizados como zsh y bordes estilizados.
-	-- Muy útil para correr comandos, REPLs o herramientas como git, htop, etc.
 	{
 		"akinsho/toggleterm.nvim",
 		version = "*",
@@ -15,7 +12,7 @@ return {
 				start_in_insert = true,
 				persist_size = true,
 				direction = "float",
-				shell = "zsh",
+				shell = vim.fn.executable("zsh") == 1 and "zsh" or vim.o.shell,
 				float_opts = {
 					border = "rounded",
 				},

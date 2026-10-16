@@ -1,9 +1,6 @@
 return {
 	-- Plugin para búsqueda y reemplazo interactivo con vista en panel.
 	-- Permite buscar en múltiples archivos con resaltado de resultados.
-	-- Se puede integrar con motores como rg, ag, sed u oxi.
-	-- Personalización de colores, separadores y mapeos detallados.
-	-- Ideal para refactorizaciones o auditorías de texto masivas.
 	{
 		"nvim-pack/nvim-spectre",
 		dependencies = {

@@ -1,5 +1,4 @@
 local telescope = require("telescope")
-local builtin = require("telescope.builtin")
 
 -- Configuración principal de Telescope
 telescope.setup({
@@ -43,7 +42,7 @@ telescope.setup({
 		winblend = 0,
 
 		-- Configuración de bordes (vacío, por defecto)
-		border = {},
+		border = true,
 
 		-- Colorear íconos basados en el tipo de archivo
 		color_devicons = true,
