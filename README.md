@@ -637,6 +637,7 @@ Cuando devuelva `1`, repite `:TSInstallAll`. Si solo quieres reintentar el parse
 :TSInstall cpp
 ```
 
+
 Si la terminal encuentra el ejecutable pero Neovim sigue devolviendo `0`, cierra Neovim y ábrelo desde esa terminal para que herede su entorno actualizado. Este error no requiere borrar la caché, eliminar los datos de Neovim ni reinstalar la configuración.
 
 ## Capturas de Pantalla
