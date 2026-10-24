@@ -1,6 +1,8 @@
+-- Menú NovaHacking: lua/menus/novahacking.lua
+-- rtxt muestra una etiqueta; no registra un atajo de teclado.
 local hl = vim.api.nvim_set_hl
 
--- Paleta pastel
+-- Paleta pastel original.
 hl(0, "PastelRose", { fg = "#d36a60" })
 hl(0, "PastelGreen", { fg = "#81c995" })
 hl(0, "PastelPurple", { fg = "#d7aefb" })
@@ -9,112 +11,71 @@ hl(0, "PastelYellow", { fg = "#ffd274" })
 hl(0, "PastelTeal", { fg = "#a7ffeb" })
 
 return {
-
 	{
 		name = "󰈔  Formatear Archivo",
 		hl = "PastelPurple",
 		cmd = function()
 			local ok, conform = pcall(require, "conform")
 			if ok then
-				conform.format({ lsp_fallback = true })
+				conform.format({ lsp_format = "fallback", async = true })
 			else
-				vim.lsp.buf.format()
+				vim.lsp.buf.format({ async = true })
 			end
 		end,
-		rtxt = "<leader>fm",
+		rtxt = "<leader>lf",
 	},
-
 	{
 		name = "󰘦  Acciones de Código",
 		hl = "PastelPurple",
 		cmd = vim.lsp.buf.code_action,
 		rtxt = "<leader>ca",
 	},
-
 	{
 		name = "󰞋  Ir a definición",
 		hl = "PastelPurple",
 		cmd = vim.lsp.buf.definition,
-		rtxt = "gd",
+		rtxt = "<leader>lgd",
 	},
-
 	{
 		name = "󰜢  Ver Referencias",
 		hl = "PastelPurple",
 		cmd = vim.lsp.buf.references,
-		rtxt = "gr",
+		rtxt = "<leader>lgr",
 	},
-
-	{
-		name = "separator",
-	},
-
+	{ name = "separator" },
 	{
 		name = "󰈬  Mostrar Errores",
 		hl = "PastelRose",
 		cmd = function()
-			local ok, trouble = pcall(require, "trouble")
-			if ok then
-				trouble.toggle()
-			else
-				vim.diagnostic.open_float()
-			end
+			-- Diagnósticos de la línea actual, sin requerir Trouble.
+			vim.diagnostic.open_float(nil, { scope = "line", border = "rounded" })
 		end,
-		rtxt = "<leader>x",
 	},
-
 	{
 		name = "  Acciones LSP",
 		hl = "Exblue",
 		items = "lsp",
 	},
-
-	{
-		name = "separator",
-	},
-
+	{ name = "separator" },
 	{
 		name = "  Terminal flotante",
 		hl = "ExRed",
-		cmd = function()
-			local Terminal = require("toggleterm.terminal").Terminal
-			local term = Terminal:new({
-				direction = "float",
-				float_opts = {
-					border = "rounded",
-				},
-			})
-			term:toggle()
-		end,
-		rtxt = "<leader>tt",
+		cmd = "ToggleTerm direction=float",
+		rtxt = "<leader>tf",
 	},
-
 	{
 		name = "  Terminal Horizontal",
 		hl = "ExRed",
-		cmd = function()
-			local Terminal = require("toggleterm.terminal").Terminal
-			local term = Terminal:new({ direction = "horizontal" })
-			term:toggle()
-		end,
+		cmd = "ToggleTerm direction=horizontal",
 		rtxt = "<leader>th",
 	},
-
 	{
 		name = "  Terminal Vertical",
 		hl = "ExRed",
-		cmd = function()
-			local Terminal = require("toggleterm.terminal").Terminal
-			local term = Terminal:new({ direction = "vertical" })
-			term:toggle()
-		end,
+		cmd = "ToggleTerm direction=vertical",
 		rtxt = "<leader>tv",
 	},
-
-	{
-		name = "separator",
-	},
-
+	{ name = "separator" },
 	{
 		name = "󰈞  Buscar Archivos",
 		hl = "PastelYellow",
@@ -123,7 +84,6 @@ return {
 		end,
 		rtxt = "<leader>ff",
 	},
-
 	{
 		name = "󰊄  Buscar en Texto",
 		hl = "PastelYellow",
@@ -132,7 +92,6 @@ return {
 		end,
 		rtxt = "<leader>fg",
 	},
-
 	{
 		name = "󱎸  Buscar Buffers",
 		hl = "PastelYellow",
@@ -141,100 +100,59 @@ return {
 		end,
 		rtxt = "<leader>fb",
 	},
-
-	{
-		name = "separator",
-	},
-
+	{ name = "separator" },
 	{
 		name = "󰺕  Ver Cambios Git",
 		cmd = function()
-			local ok, gs = pcall(require, "gitsigns")
-			if ok then
-				gs.preview_hunk()
-			else
-				vim.cmd("Git")
-			end
+			require("gitsigns").preview_hunk()
 		end,
-		rtxt = "<leader>gp",
+		rtxt = "<leader>hp",
 	},
-
 	{
 		name = "󰦨  Cambios de línea",
 		cmd = function()
 			require("gitsigns").toggle_linehl()
 		end,
-		rtxt = "<leader>gl",
+		rtxt = ":Gitsigns toggle_linehl",
 	},
-
-	{
-		name = "separator",
-	},
-
+	{ name = "separator" },
 	{
 		name = "󰈙  Copiar Todo",
 		hl = "PastelTeal",
 		cmd = "%y+",
-		rtxt = "<C-c>",
+		rtxt = ":%y+",
 	},
-
 	{
 		name = "󰆴  Borrar Todo",
 		hl = "PastelTeal",
 		cmd = "%d",
-		rtxt = "dc",
+		rtxt = ":%d",
 	},
-
 	{
 		name = "󰏘  Selector de Color",
 		hl = "PastelOrange",
 		cmd = function()
 			require("minty.huefy").open()
 		end,
-		rtxt = "<leader>cp",
+		rtxt = ":Huefy",
 	},
-
 	{
 		name = "  Practica con el teclado",
 		hl = "PastelOrange",
 		cmd = "Typr",
-		rtxt = "tr",
+		rtxt = ":Typr",
 	},
-
 	{
 		name = "󰕮  Estadísticas del teclado",
 		hl = "PastelOrange",
 		cmd = "TyprStats",
-		rtxt = "td",
+		rtxt = ":TyprStats",
 	},
-
-	{
-		name = "separator",
-	},
-
+	{ name = "separator" },
 	{
 		name = "󰸱  Ver Markdown (Glow)",
 		hl = "PastelGreen",
-		cmd = function()
-			vim.cmd("Glow")
-		end,
-		rtxt = "<leader>mg",
-	},
-	{
-		name = "󰸱  Ver Markdown (Peek)",
-		hl = "PastelGreen",
-		cmd = function()
-			require("peek").open()
-		end,
-		rtxt = "<leader>mp",
-	},
-
-	{
-		name = "󰸱  Ver Markdown (MkPreview)",
-		hl = "PastelGreen",
-		cmd = function()
-			vim.cmd("MarkdownPreview")
-		end,
-		rtxt = "<leader>mm",
+		cmd = "Glow",
+		rtxt = ":Glow",
 	},
 }
