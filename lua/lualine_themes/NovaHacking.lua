@@ -136,7 +136,7 @@ local config = {
 		},
 		-- Sección derecha X (LSP, codificación, formato, rama git y diferencias)
 		lualine_x = {
-			-- Visible cuando el formato al guardar está desactivado.
+			-- Muestra el estado del formato automático del buffer actual.
 			{
 				function()
 					local estado = vim.b.nova_disable_autoformat and "FMT OFF" or "FMT ON"
