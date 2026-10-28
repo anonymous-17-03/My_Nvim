@@ -136,6 +136,15 @@ local config = {
 		},
 		-- Sección derecha X (LSP, codificación, formato, rama git y diferencias)
 		lualine_x = {
+			-- Visible cuando el formato al guardar está desactivado.
+			{
+				function()
+					local estado = vim.b.nova_disable_autoformat and "FMT OFF" or "FMT ON"
+
+					return "│ " .. estado
+				end,
+				color = { fg = colors.yellow, gui = "bold" },
+			},
 			{
 				-- Muestra el cliente LSP activo o "No Active Lsp" si no hay ninguno
 				function()
@@ -153,7 +162,7 @@ local config = {
 					end
 					return msg
 				end,
-				icon = "│   LSP:",
+				icon = "  LSP:",
 				color = { fg = colors.blue, gui = "bold" },
 			},
 			{

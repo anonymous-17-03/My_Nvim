@@ -35,8 +35,17 @@ return {
 	},
 
 	-- Configuración para el autoformateo al guardar archivos
-	format_on_save = {
-		lsp_format = "fallback", -- Usar LSP solo si no hay formateador externo disponible
-		timeout_ms = 1000, -- Tiempo máximo para el formateo
-	},
+	format_on_save = function(bufnr)
+		-- Si desactivaste el formato para este buffer,
+		-- Conform no formateará automáticamente al guardar.
+		if vim.b[bufnr].nova_disable_autoformat then
+			return
+		end
+
+		-- En los demás casos, conserva el comportamiento habitual.
+		return {
+			lsp_format = "fallback", -- Usar LSP solo si no hay formateador externo disponible
+			timeout_ms = 1000, -- Tiempo máximo para el formateo
+		}
+	end,
 }
