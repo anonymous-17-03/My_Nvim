@@ -24,6 +24,14 @@ wk.add({
 	-- 🎨 Opciones de la interfaz y comportamiento
 	{ "<leader>u", group = "󰒓 Opciones" },
 
+	{
+		"<leader>ul",
+		function()
+			require("configs.lualine_selector").open()
+		end,
+		desc = "Seleccionar diseño de Lualine",
+	},
+
 	-- 🔳 NvimTree
 	{ "<leader>n", vim.cmd.NvimTreeFocus, desc = "󰙅 Enfocar NvimTree" },
 	{ "<C-n>", vim.cmd.NvimTreeToggle, desc = " Alternar NvimTree" },

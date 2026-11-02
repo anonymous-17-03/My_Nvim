@@ -72,7 +72,6 @@ local config = {
 		-- Separadores entre componentes y secciones
 		component_separators = { left = "│", right = "│" },
 		section_separators = { left = "", right = "" },
-		globalstatus = true, -- Usa la barra de estado global (Neovim >= 0.7)
 	},
 	sections = {
 		-- Sección izquierda A (modo actual y un icono personalizado)
@@ -136,7 +135,7 @@ local config = {
 		},
 		-- Sección derecha X (LSP, codificación, formato, rama git y diferencias)
 		lualine_x = {
-			-- Muestra el estado del formato automático del buffer actual.
+			-- Visible cuando el formato al guardar está desactivado.
 			{
 				function()
 					local estado = vim.b.nova_disable_autoformat and "FMT OFF" or "FMT ON"
