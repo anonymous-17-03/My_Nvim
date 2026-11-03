@@ -169,6 +169,25 @@ function M.set_layout(name)
 	return true
 end
 
+-- Registra un layout "center" con una línea de separación entre prompt y resultados.
+local function register_separated_layout()
+	local layout_strategies = require("telescope.pickers.layout_strategies")
+
+	if layout_strategies.center_separated then
+		return
+	end
+
+	layout_strategies.center_separated = function(self, max_columns, max_lines, layout_config)
+		local layout = layout_strategies.center(self, max_columns, max_lines, layout_config)
+
+		-- Bajar los resultados una línea para dejar un hueco entre las cajas.
+		layout.results.line = layout.results.line + 1
+		layout.results.height = math.max(layout.results.height - 1, 1)
+
+		return layout
+	end
+end
+
 -- Abre el selector de diseños mediante Telescope.
 function M.open()
 	local ok, err = pcall(function()
@@ -177,6 +196,8 @@ function M.open()
 		local conf = require("telescope.config").values
 		local actions = require("telescope.actions")
 		local action_state = require("telescope.actions.state")
+
+		register_separated_layout()
 
 		local current_layout = M.get_saved_layout()
 
@@ -193,11 +214,29 @@ function M.open()
 			})
 		end
 
+		-- Caja completa (arriba, derecha, abajo, izquierda, esquinas).
+		local box = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
+
 		pickers
 			.new({}, {
 				prompt_title = "󰒓 Seleccionar diseño de Lualine",
 				results_title = "Diseños disponibles",
 
+				layout_strategy = "center_separated",
+				layout_config = {
+					width = 0.42,
+					height = 0.35,
+					prompt_position = "top",
+				},
+
+				border = true,
+				borderchars = {
+					prompt = box,
+					results = box,
+					preview = box,
+				},
+
+				sorting_strategy = "ascending",
 				finder = finders.new_table({
 					results = entries,
 
