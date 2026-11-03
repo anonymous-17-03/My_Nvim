@@ -198,30 +198,6 @@ function M.open()
 				prompt_title = "󰒓 Seleccionar diseño de Lualine",
 				results_title = "Diseños disponibles",
 
-				-- Diseño centrado con una separación adicional entre el prompt
-				-- y la lista de resultados. Se conserva el tamaño del selector.
-				layout_strategy = function(picker, columns, lines, layout_config)
-					local layout = require("telescope.pickers.layout_strategies").center(
-						picker,
-						columns,
-						lines,
-						layout_config
-					)
-
-					if layout.results then
-						layout.results.line = layout.results.line + 1
-						layout.results.height = math.max(1, layout.results.height - 1)
-					end
-
-					return layout
-				end,
-
-				layout_config = {
-					width = 0.42,
-					height = 0.35,
-					prompt_position = "top",
-				},
-
 				finder = finders.new_table({
 					results = entries,
 
