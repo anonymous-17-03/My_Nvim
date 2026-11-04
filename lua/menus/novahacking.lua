@@ -50,6 +50,7 @@ return {
 			-- Diagnósticos de la línea actual, sin requerir Trouble.
 			vim.diagnostic.open_float(nil, { scope = "line", border = "rounded" })
 		end,
+		rtxt = "LSP Diagnostics",
 	},
 	{
 		name = "  Acciones LSP",
@@ -149,6 +150,12 @@ return {
 		rtxt = ":TyprStats",
 	},
 	{ name = "separator" },
+	{
+		name = "󰈙  Ver Markdown en el Navegador",
+		hl = "PastelGreen",
+		cmd = "MarkdownPreviewToggle",
+		rtxt = "<leader>mp",
+	},
 	{
 		name = "󰸱  Ver Markdown (Glow)",
 		hl = "PastelGreen",
