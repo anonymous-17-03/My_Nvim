@@ -14,10 +14,8 @@ return {
 	require("plugins_lazy.ui"),
 
 	-- Markdown:
-	-- Ej. glow, peek, markdown-preview
+	-- Ej. glow, peek, markdown-preview, render-markdown
 	require("plugins_lazy.markdown"),
-	-- Visualizar Markdown dentro de Neovim
-	require("plugins_lazy.markdown_render"),
 
 	-- Git:
 	-- Ej. gitsigns, lazygit
