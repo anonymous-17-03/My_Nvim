@@ -65,6 +65,75 @@ local config = {
 		lualine_c = {},
 		lualine_x = {},
 	},
+	extensions = {
+		{
+			sections = {
+				lualine_a = {
+					function()
+						return "  CheatSheet"
+					end,
+				},
+			},
+			filetypes = { "nvcheatsheet" },
+		},
+		{
+			sections = {
+				lualine_a = {
+					function()
+						return "  Oil"
+					end,
+				},
+			},
+			filetypes = { "oil" },
+		},
+		{
+			sections = {
+				lualine_a = {
+					function()
+						return "  LazyGit"
+					end,
+				},
+			},
+			filetypes = { "lazygit" },
+		},
+		{
+			sections = {
+				lualine_a = {
+					function()
+						return "󰕮  DASHBOARD"
+					end,
+				},
+			},
+			filetypes = { "dashboard" },
+		},
+		{
+			sections = {
+				lualine_a = {
+					function()
+						return "   Typr"
+					end,
+				},
+			},
+			filetypes = { "typr" },
+		},
+		{
+			sections = {
+				lualine_a = {
+					function()
+						return "   TyprStats"
+					end,
+				},
+			},
+			filetypes = { "typrstats" },
+		},
+
+		"toggleterm",
+		"mason",
+		"man",
+		"lazy",
+		"fzf",
+		"quickfix",
+	}, -- Extensiones adicionales
 }
 
 -- Inserts a component in lualine_c at left section
