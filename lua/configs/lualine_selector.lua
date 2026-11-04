@@ -136,6 +136,8 @@ function M.set_layout(name)
 
 	-- Aplicar la configuración inmediatamente.
 	local setup_ok, setup_err = pcall(function()
+		config.options = config.options or {}
+		config.options.globalstatus = true
 		require("lualine").setup(config)
 	end)
 
