@@ -14,6 +14,9 @@ return {
 			})
 		end,
 	},
+	-- Render Markdown: Renderizado visual de Markdown directamente
+	-- en el buffer de Neovim, sin necesidad de abrir un navegador.
+	-- Decora encabezados, listas, tablas, bloques de código y otros elementos.
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
 
@@ -48,6 +51,9 @@ return {
 			},
 		},
 	},
+	-- Markdown Preview: Previsualización de documentos Markdown
+	-- en el navegador mediante un servidor local.
+	-- Permite visualizar el resultado final con estilos HTML y CSS.
 	{
 		"iamcco/markdown-preview.nvim",
 
