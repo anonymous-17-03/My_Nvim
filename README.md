@@ -320,11 +320,30 @@ El fondo final también depende de la transparencia configurada en tu terminal.
 
 Si deseas utilizar otro tema de colores, adapta su declaración en `lua/plugins_lazy/ui.lua` y su llamada a `colorscheme`.
 
-Para cambiar únicamente la barra de estado, edita `lua/configs/lualine.lua`:
+Para cambiar únicamente la barra de estado, vea `lua/configs/lualine.lua`:
 
 ```lua
-local theme_name = "NovaHacking"
-return require("lualine_themes." .. theme_name)
+local selector = require("configs.lualine_selector")
+
+local theme_name = selector.get_saved_layout()
+
+local ok, config = pcall(require, "lualine_themes." .. theme_name)
+
+if not ok then
+	vim.notify(
+		"No se pudo cargar el diseño guardado " .. theme_name .. ". Se utilizará NovaHacking.\n" .. tostring(config),
+		vim.log.levels.WARN,
+		{ title = "NovaHacking · Lualine" }
+	)
+
+	config = require("lualine_themes.NovaHacking")
+end
+
+-- Una única barra de estado para toda la instancia de Neovim.
+config.options = config.options or {}
+config.options.globalstatus = true
+
+return config
 ```
 
 Los valores disponibles son `NovaHacking`, `bubbles`, `slanted`, `evil` y `back`. Cada tema devuelve sus opciones y Lualine se configura una sola vez.
