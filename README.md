@@ -7,7 +7,8 @@ Mi configuración de Neovim reúne herramientas para escribir código, navegar p
 Puedes clonarla y utilizarla como tu entorno de trabajo o adaptarla a tus preferencias.
 Incluye autocompletado, soporte LSP para varios lenguajes, formateo al guardar, exploradores de archivos, terminales integradas y el menú NovaHacking.
 
-Está organizada en módulos Lua y se ha probado con **Neovim 0.12.5 en Linux**. Las instrucciones de instalación utilizan rutas y comandos de Linux. Me basé en [FStanDev/myNvimConfig](https://github.com/FStanDev/myNvimConfig) para crear esta configuración.
+Está organizada en módulos Lua y se ha probado con **Neovim 0.12.5 en Linux**.
+Las instrucciones de instalación utilizan rutas y comandos de Linux. Me basé en [FStanDev/myNvimConfig](https://github.com/FStanDev/myNvimConfig) para crear esta configuración.
 
 > **Para empezar:** prepara las dependencias, sigue la sección [Instalación](#instalación) y consulta la tabla de atajos principales. Si ya utilizas otra configuración, puedes [probar esta en paralelo](#probar-sin-sustituir-tu-configuración-habitual).
 
