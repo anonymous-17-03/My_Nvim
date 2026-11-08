@@ -4,7 +4,8 @@
 
 Mi configuración de Neovim reúne herramientas para escribir código, navegar proyectos, trabajar con Git y depurar programas, con una interfaz basada en TokyoNight y una barra de estado personalizada.
 
-Puedes clonarla y utilizarla como tu entorno de trabajo o adaptarla a tus preferencias. Incluye autocompletado, soporte LSP para varios lenguajes, formateo al guardar, exploradores de archivos, terminales integradas y el menú NovaHacking.
+Puedes clonarla y utilizarla como tu entorno de trabajo o adaptarla a tus preferencias.
+Incluye autocompletado, soporte LSP para varios lenguajes, formateo al guardar, exploradores de archivos, terminales integradas y el menú NovaHacking.
 
 Está organizada en módulos Lua y se ha probado con **Neovim 0.12.5 en Linux**. Las instrucciones de instalación utilizan rutas y comandos de Linux. Me basé en [FStanDev/myNvimConfig](https://github.com/FStanDev/myNvimConfig) para crear esta configuración.
 
