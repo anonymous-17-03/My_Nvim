@@ -286,7 +286,8 @@ vim.wo.relativenumber = true  -- Otras líneas en formato relativo
 
 > **Nota**: Para abrir el menú NovaHacking incluido en la configuración, presiona `<leader>mh`. Las opciones visibles pueden variar respecto a la captura.
 
-La línea actual muestra su número absoluto; las demás indican la distancia desde el cursor. Por ejemplo, una línea marcada con `3` está a tres líneas de distancia. Para mostrar solo números absolutos, establece `vim.wo.relativenumber = false`.
+La línea actual muestra su número absoluto; las demás indican la distancia desde el cursor.
+Por ejemplo, una línea marcada con `3` está a tres líneas de distancia. Para mostrar solo números absolutos, establece `vim.wo.relativenumber = false`.
 
 ## 🎨 Personalizar Apariencia: Fondo y Temas
 
