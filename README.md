@@ -56,7 +56,8 @@ El tema predeterminado de Lualine es **NovaHacking**. Las configuraciones espec�
 - `lazygit` para la interfaz Git y `glow` para previsualizar Markdown.
 - Zsh para las terminales integradas; si no está instalado, se utiliza el shell configurado en Neovim.
 
-Mason instala servidores y herramientas, pero los runtimes y compiladores de cada lenguaje deben estar disponibles en el sistema. Instala las dependencias con el gestor de paquetes de tu distribución; los nombres pueden variar entre distribuciones.
+Mason instala servidores y herramientas, pero los runtimes y compiladores de cada lenguaje deben estar disponibles en el sistema.
+Instala las dependencias con el gestor de paquetes de tu distribución; los nombres pueden variar entre distribuciones.
 
 No necesitas trabajar con todos los lenguajes de la lista: puedes instalar únicamente las herramientas que vas a utilizar. Para comprobar la versión de Neovim y las dependencias principales:
 
